@@ -1,0 +1,13 @@
+:root{
+
+/*Cores para texto*/
+--light-f: #f0f8ff;
+--dark-f: #000;
+
+/*Cores para plano de fundos*/
+--light-bg: #dcdcdc;
+--dark-bg: #302c2c;
+--red-bg: #800000;
+--white-bg: #fff;
+}
+

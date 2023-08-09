@@ -1,4 +1,18 @@
-# Getting Started with Create React App
+# ESTAMPARIA Front-end
+
+Front-end do projeto ESTAMPARIA para a matéria de projeto final de curso de ADS IFSP-CJo
+
+**Desenvolvedor:** Victor Caravieri Temple
+
+## Dependências adicionadas 
+
+**react-router-dom:**
+Impedir que haja atualização total da página sempre que aconteça uma requisição HTTP, realizando o tratamento das rotas e entregando apenas os componentes necessários na devida requisição
+
+
+ - Documentação do React nativo
+--------------------------------------------------------------------
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
