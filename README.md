@@ -6,11 +6,18 @@ Front-end do projeto ESTAMPARIA para a matéria de projeto final de curso de ADS
 
 ## Dependências adicionadas 
 
+**react:**
+Facilitar o método de componentização do código para possiblilitar a reutilização dos componentes criados e a manutenção dos mesmos
+
 **react-router-dom:**
 Impedir que haja atualização total da página sempre que aconteça uma requisição HTTP, realizando o tratamento das rotas e entregando apenas os componentes necessários na devida requisição
 
+**react-icons:**
+Biblioteca de ícones populares
 
 --------------------------------------------------------------------
+**Documentação do React App**
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

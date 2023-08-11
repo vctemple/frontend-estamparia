@@ -3,6 +3,7 @@ import "../../styles/header.css";
 import logo1 from "../../imgs/Estamparia_logo1.png";
 import logo2 from "../../imgs/Estamparia_logo2.png";
 import { NavLink, useMatch, useResolvedPath } from "react-router-dom";
+import { RiShoppingCart2Line, RiShoppingCart2Fill } from "react-icons/ri";
 
 const header = () => {
   return (
@@ -27,10 +28,10 @@ const header = () => {
               <img src={logo2} alt='Logo da empresa' className='logo' id='logo2'/>
               </NavLink>
             <nav>
-              <ul >
+              <ul> {/*Tornar dinâmico e adicionar o carrinho cheio*/}
                 <IconePersonalizado to="/login">Login</IconePersonalizado>
-                <IconePersonalizado to="cadastro">Cadastro</IconePersonalizado>
-                <IconePersonalizado to="carrinho">Carrinho</IconePersonalizado>
+                <IconePersonalizado to="/cadastro">Cadastro</IconePersonalizado>
+                <IconePersonalizado to="/carrinho"><RiShoppingCart2Line /></IconePersonalizado>
               </ul>
             </nav>
           </div>
