@@ -31,7 +31,7 @@ const header = () => {
               <ul> {/*Tornar dinâmico e adicionar o carrinho cheio*/}
                 <IconePersonalizado to="/login">Login</IconePersonalizado>
                 <IconePersonalizado to="/cadastro">Cadastro</IconePersonalizado>
-                <IconePersonalizado to="/carrinho"><RiShoppingCart2Line /></IconePersonalizado>
+                <IconePersonalizado to="/carrinho">Carrinho&#160;<RiShoppingCart2Line /></IconePersonalizado>
               </ul>
             </nav>
           </div>

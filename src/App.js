@@ -4,6 +4,9 @@ import Carrinho from "./pages/carrinho.js";
 import PaginaNaoEncontrada from "./pages/paginaNaoEncontrada.js";
 import Login from "./pages/login.js";
 import Cadastro from "./pages/cadastro.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   return (

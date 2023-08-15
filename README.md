@@ -15,6 +15,15 @@ Impedir que haja atualização total da página sempre que aconteça uma requisi
 **react-icons:**
 Biblioteca de ícones populares
 
+**react-toastify:**
+Biblioteca de pop-up para mensagens de aviso estilizadas
+
+**axios:**
+Cliente http baseado em promessas para a execução das rotinas API nas rotas com o backend
+
+**dotenv:**
+Auxílio na leitura das variáveis de ambiente com rotinas próprias facilitando escrita do código
+
 --------------------------------------------------------------------
 **Documentação do React App**
 
