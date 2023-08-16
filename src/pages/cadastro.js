@@ -43,8 +43,9 @@ const CadastroUsuario = () => {
       });
       
       if(res && res.data.success) {
-        alert(res.data.message);
-        Navigate("/login");
+        toast.success(res.data.message);
+        setTimeout(() => { Navigate("/login"); }, 3000);
+        
       } else{
         toast.error(res.data.message, {
           className: "toast-message"

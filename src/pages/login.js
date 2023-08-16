@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../components/layout/layout.js";
 import "../styles/auth.css";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -9,7 +9,7 @@ const Login = () => {
   
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-
+  const Navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -20,7 +20,10 @@ const Login = () => {
       });
 
       if(res && res.data.success) {
-        alert(res.data.message);
+        toast.success(res.data.message, {
+          className: "toast-message"
+        });
+        setTimeout(() => { Navigate("/"); }, 3000);
   
       } else{
         toast.error(res.data.message, {

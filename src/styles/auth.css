@@ -54,11 +54,6 @@ h1{
     font-size: 1.5rem;
   }
 
-  .toast-message{
-    background-color: black;
-    color: aliceblue;
-  }
-
   #ImgFront::file-selector-button, #ImgBack::file-selector-button{
     display:none;
   }
