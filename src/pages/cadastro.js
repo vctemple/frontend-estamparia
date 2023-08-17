@@ -44,7 +44,7 @@ const CadastroUsuario = () => {
       
       if(res && res.data.success) {
         toast.success(res.data.message);
-        setTimeout(() => { Navigate("/login"); }, 3000);
+        setTimeout(() => { Navigate("/login"); }, 2000);
         
       } else{
         toast.error(res.data.message, {

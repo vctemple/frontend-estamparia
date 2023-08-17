@@ -4,11 +4,13 @@ import "../styles/auth.css";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import axios from "axios";
+import { UseAuth } from "../context/auth.js";
 
 const Login = () => {
   
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [auth, setAuth] = UseAuth();
   const Navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,7 +25,13 @@ const Login = () => {
         toast.success(res.data.message, {
           className: "toast-message"
         });
-        setTimeout(() => { Navigate("/"); }, 3000);
+        setAuth({
+          ...auth,
+          usuario: res.data.usuario,
+          token: res.data.token,
+        });
+        localStorage.setItem("auth", JSON.stringify(res.data));
+        setTimeout(() => { Navigate("/"); }, 2000);
   
       } else{
         toast.error(res.data.message, {

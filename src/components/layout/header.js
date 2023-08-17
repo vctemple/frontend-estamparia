@@ -4,8 +4,10 @@ import logo1 from "../../imgs/Estamparia_logo1.png";
 import logo2 from "../../imgs/Estamparia_logo2.png";
 import { NavLink, useMatch, useResolvedPath } from "react-router-dom";
 import { RiShoppingCart2Line, RiShoppingCart2Fill } from "react-icons/ri";
+import { UseAuth } from "../../context/auth";
 
 const header = () => {
+  const [auth, setAuth] = UseAuth();
   return (
         <div>
         <input
@@ -29,8 +31,14 @@ const header = () => {
               </NavLink>
             <nav>
               <ul> {/*Tornar dinâmico e adicionar o carrinho cheio*/}
-                <IconePersonalizado to="/login">Login</IconePersonalizado>
-                <IconePersonalizado to="/cadastro">Cadastro</IconePersonalizado>
+                {
+                !auth.usuario ? (<>
+                  <IconePersonalizado to="/login">Login</IconePersonalizado>
+                  <IconePersonalizado to="/cadastro">Cadastro</IconePersonalizado>
+                </>) : (<>
+                  <IconePersonalizado>Logout</IconePersonalizado>
+                </>)
+                }
                 <IconePersonalizado to="/carrinho">Carrinho&#160;<RiShoppingCart2Line /></IconePersonalizado>
               </ul>
             </nav>
@@ -38,10 +46,8 @@ const header = () => {
         </aside>
         <div className="menu-space" />
       </div>
-  )
+  );
 }
-
-export default header
 
 function IconePersonalizado({ to, children, ...props }){
   const resolvedPath = useResolvedPath(to);
@@ -52,5 +58,9 @@ function IconePersonalizado({ to, children, ...props }){
         {children}
       </NavLink>
     </li>
-  )
-}
+  );
+};
+
+//function Dropdown()
+
+export default header
