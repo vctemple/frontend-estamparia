@@ -8,7 +8,7 @@ const ProvideAuth = ({ children }) => {
         usuario: null,
         token: "",
     });
-    
+ 
     //Função para persistir os dados sempre que a página é atualizada
     useEffect(() => { 
         const contexto = localStorage.getItem("auth");
@@ -20,7 +20,11 @@ const ProvideAuth = ({ children }) => {
                 token: contextoParsed.token,
             });
         }
-    }, [auth]);
+
+        //Comando necessário para para a atualização constante o ESlint no browser
+        /*eslint-disable-next-line*/
+    }, []);
+    
     //Retorno do componente
     return (
         <AuthContexto.Provider value={[auth, setAuth]}>

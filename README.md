@@ -18,6 +18,9 @@ Biblioteca de ícones populares
 **react-toastify:**
 Biblioteca de pop-up para mensagens de aviso estilizadas
 
+**react-spinner**
+Biblioteca de spinners para utilização em carregamento de páginas e arquivos
+
 **axios:**
 Cliente http baseado em promessas para a execução das rotinas API nas rotas com o backend
 
@@ -25,6 +28,7 @@ Cliente http baseado em promessas para a execução das rotinas API nas rotas co
 Auxílio na leitura das variáveis de ambiente com rotinas próprias facilitando escrita do código
 
 --------------------------------------------------------------------
+
 **Documentação do React App**
 
 ## Getting Started with Create React App
