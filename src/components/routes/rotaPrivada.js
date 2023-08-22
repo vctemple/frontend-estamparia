@@ -10,17 +10,23 @@ export default function RotaPrivada () {
 
     useEffect(() => {
         const check = async() => {
-            const res = await axios.get(`http://localhost:3001/api/v1/auth/auth-login`, 
-            {
-                headers:{
-                    Authorization: auth?.token,
-                },
-            });
-            if(res.data.ok){
-                setOk(true);
-            } else {
-                setOk(false);
-            }
+            try {
+                const res = await axios.get(`http://localhost:3001/api/v1/auth/auth-login`, 
+                {
+                    headers:{
+                        Authorization: auth?.token,
+                    },
+                });
+                if(res.data.ok){
+                    setOk(true);
+                } else {
+                    setOk(false);
+                    
+                }
+            } catch (e) {
+                setOk(false)
+                
+            } 
         };
         if(auth?.token){
             check();
@@ -28,5 +34,6 @@ export default function RotaPrivada () {
             
     }, [auth?.token]);
 
+    //Estilizar pacman
     return ok ? <Outlet/> : <PacmanLoader color="#800000" />
 }

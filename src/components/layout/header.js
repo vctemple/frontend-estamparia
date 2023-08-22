@@ -6,6 +6,8 @@ import { NavLink, useMatch, useResolvedPath } from "react-router-dom";
 import { RiShoppingCart2Line, RiShoppingCart2Fill } from "react-icons/ri";
 import { UseAuth } from "../../context/auth";
 import { toast } from "react-toastify";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import "../../styles/dropDownMenu.css";
 
 const header = () => {
   const [auth, setAuth] = UseAuth();
@@ -26,6 +28,68 @@ const header = () => {
       });
     }
   };
+
+  function PerfilSelecao (){
+    if(auth?.usuario){
+      switch (auth.usuario.perfil){
+        case 0:
+          return [
+            <IconePersonalizado to="/carrinho">Carrinho&#160;<RiShoppingCart2Line/></IconePersonalizado>,
+            <IconePersonalizado to="/usuario">Usuário</IconePersonalizado>,
+            <li>
+                <NavLink onClick={handleLogout} to="/">
+                  Logout
+                </NavLink>
+            </li>
+          ]   
+        case 1:
+          return [
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild>
+                <li>
+                  <a>Adm</a>
+                </li>
+              </DropdownMenu.Trigger>
+
+              <DropdownMenu.Portal>
+                <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    Dashboard
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Portal>
+             </DropdownMenu.Root>,
+            
+            <li>
+                <NavLink onClick={handleLogout} to="/">
+                  Logout
+                </NavLink>
+            </li>
+          ]
+          case 2:
+            return [
+              (
+              <DropdownMenu.Root>Gerente</DropdownMenu.Root>
+              ),
+              
+              <li>
+                  <NavLink onClick={handleLogout} to="/">
+                    Logout
+                  </NavLink>
+              </li>
+            ]
+      }
+    } else{
+      return [
+            <IconePersonalizado to="/login">Login</IconePersonalizado>,
+            <IconePersonalizado to="/cadastro">Cadastro</IconePersonalizado>,
+            <IconePersonalizado to="/carrinho">Carrinho&#160;<RiShoppingCart2Line/></IconePersonalizado>
+      ]
+    }
+    
+    
+    }
+
 
   function IconePersonalizado({ to, children, ...props }) {
     const resolvedPath = useResolvedPath(to);
@@ -71,29 +135,8 @@ const header = () => {
             />
           </NavLink>
           <nav>
-            <ul>
-              {" "}
-              {/*Tornar dinâmico e adicionar o carrinho cheio*/}
-              {!auth.usuario ? (
-                <>
-                  <IconePersonalizado to="/login">Login</IconePersonalizado>
-                  <IconePersonalizado to="/cadastro">
-                    Cadastro
-                  </IconePersonalizado>
-                </>
-              ) : (
-                <>
-                  <li>
-                    <NavLink onClick={handleLogout} to="/">
-                      Logout
-                    </NavLink>
-                  </li>
-                </>
-              )}
-              <IconePersonalizado to="/carrinho">
-                Carrinho&#160;
-                <RiShoppingCart2Line />
-              </IconePersonalizado>
+            <ul> 
+              <PerfilSelecao/>
             </ul>
           </nav>
         </div>

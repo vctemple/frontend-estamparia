@@ -8,6 +8,8 @@ import Dashboard from "./pages/adm/dashboard.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RotaPrivada from "./components/routes/rotaPrivada.js";
+import Usuario from "./pages/usuario/usuario.js";
+import RotaAdm from "./components/routes/rotaAdm.js";
 
 
 function App() {
@@ -19,9 +21,11 @@ function App() {
         <Route path="*" element={<PaginaNaoEncontrada />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/cadastro" element={<Cadastro />}/>
-        <Route path="/dashboard" element={<RotaPrivada />}>
-          <Route path="" element={<Dashboard />}/>
-
+        <Route path="/auth-login" element={<RotaPrivada />}>
+          <Route path="/auth-login/usuario" element={<Usuario />}/>
+          <Route path="/auth-login/auth-perfil-adm" element={<RotaAdm />}>
+            <Route path="/auth-login/auth-perfil-adm/dashboard" element={<Dashboard />} />
+          </Route>
         </Route>
         
       </Routes>

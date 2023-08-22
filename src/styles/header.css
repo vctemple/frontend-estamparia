@@ -23,7 +23,7 @@
 .menu{
     background-color: var(--white-bg);
     border-bottom: 0.1rem solid var(--light-bg);
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
