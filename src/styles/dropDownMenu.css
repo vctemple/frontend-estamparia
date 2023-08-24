@@ -10,6 +10,7 @@
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
+  z-index: 1;
 }
 .DropdownMenuContent[data-side='top'],
 .DropdownMenuSubContent[data-side='top'] {
@@ -27,6 +28,12 @@
 .DropdownMenuSubContent[data-side='left'] {
   animation-name: slideRightAndFade;
 }
+
+li a {
+  cursor: pointer;
+}
+
+
 
 .DropdownMenuItem,
 .DropdownMenuCheckboxItem,
@@ -62,6 +69,7 @@
 .DropdownMenuSubTrigger[data-highlighted] {
   color: var(--red-bg);
   font-size: 16px;
+  cursor: pointer;
 }
 
 .DropdownMenuLabel {
@@ -73,7 +81,7 @@
 
 .DropdownMenuSeparator {
   height: 1px;
-  background-color: blue;
+  background-color: var(--red-bg);
   margin: 5px;
 }
 

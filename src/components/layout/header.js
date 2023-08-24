@@ -54,12 +54,36 @@ const header = () => {
               <DropdownMenu.Portal>
                 <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    Dashboard
+                    <NavLink to="/auth-login/auth-gerente/dashboard">Dashboard</NavLink>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Separator className="DropdownMenuSeparator" />
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    <NavLink to="/auth-login/auth-gerente/produtos">Produtos</NavLink>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    <NavLink to="/auth-login/auth-gerente/auth-adm/fornecedores">Fornecedores</NavLink>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    <NavLink to="/auth-login/auth-gerente/auth-adm/usuariosSistema">Usuários de sistema</NavLink>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Separator className="DropdownMenuSeparator" />
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    Relatório de Vendas
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    Relatório de Custos
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    Relatório de Lucro
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Separator className="DropdownMenuSeparator" />
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                  <NavLink to="/auth-login/auth-gerente/banner">Banner</NavLink>
                   </DropdownMenu.Item>
                 </DropdownMenu.Content>
               </DropdownMenu.Portal>
              </DropdownMenu.Root>,
-            
+            <IconePersonalizado to="/auth-login/usuario">Usuário</IconePersonalizado>,
             <li>
                 <NavLink onClick={handleLogout} to="/">
                   Logout
@@ -68,10 +92,31 @@ const header = () => {
           ]
           case 2:
             return [
-              (
-              <DropdownMenu.Root>Gerente</DropdownMenu.Root>
-              ),
-              
+              <DropdownMenu.Root>
+              <DropdownMenu.Trigger asChild>
+                <li>
+                  <a>Gerente</a>
+                </li>
+              </DropdownMenu.Trigger>
+
+              <DropdownMenu.Portal>
+                <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    <IconePersonalizado to="/auth-login/auth-gerente/dashboard">Dashboard</IconePersonalizado>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    <IconePersonalizado to="/auth-login/auth-gerente/produtos">Produtos</IconePersonalizado>
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    Relatório de Vendas
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    <IconePersonalizado to="/auth-login/auth-gerente/banner">Banner</IconePersonalizado>
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Portal>
+             </DropdownMenu.Root>,
+              <IconePersonalizado to="/auth-login/usuario">Usuário</IconePersonalizado>,
               <li>
                   <NavLink onClick={handleLogout} to="/">
                     Logout
