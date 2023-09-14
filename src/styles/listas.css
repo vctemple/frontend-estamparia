@@ -1,0 +1,57 @@
+@import "./colors.css";
+
+.table{
+    max-width: 90vw;
+    overflow: hidden;
+    overflow-x: auto;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size:small;
+}
+
+table{
+    min-width: 50rem;
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+table td, table th{
+    padding: 0.5rem;
+    text-align: center;
+    border: 0.1rem solid lightgrey;
+    border-right-color: #fff;
+    border-left-color: #fff;
+}
+
+table tr img{
+    display: flex;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;;
+}
+
+table th{
+    background-color: maroon;
+    color: white;
+}
+
+table tr{
+    align-items: center;
+}
+
+.tableicon{
+    border:none
+}
+
+.deleteicon{
+    color: black;
+}
+
+.deleteicon:hover{
+    color: maroon;
+    cursor: pointer;
+}

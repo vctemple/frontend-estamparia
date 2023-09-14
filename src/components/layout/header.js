@@ -6,7 +6,7 @@ import { NavLink, useMatch, useResolvedPath } from "react-router-dom";
 import { RiShoppingCart2Line, RiShoppingCart2Fill } from "react-icons/ri";
 import { UseAuth } from "../../context/auth";
 import { toast } from "react-toastify";
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import "../../styles/dropDownMenu.css";
 
 const header = () => {
@@ -29,19 +29,22 @@ const header = () => {
     }
   };
 
-  function PerfilSelecao (){
-    if(auth?.usuario){
-      switch (auth.usuario.perfil){
+  function PerfilSelecao() {
+    if (auth?.usuario) {
+      switch (auth.usuario.perfil) {
         case 0:
           return [
-            <IconePersonalizado to="/carrinho">Carrinho&#160;<RiShoppingCart2Line/></IconePersonalizado>,
+            <IconePersonalizado to="/carrinho">
+              Carrinho&#160;
+              <RiShoppingCart2Line />
+            </IconePersonalizado>,
             <IconePersonalizado to="/usuario">Usuário</IconePersonalizado>,
             <li>
-                <NavLink onClick={handleLogout} to="/">
-                  Logout
-                </NavLink>
-            </li>
-          ]   
+              <NavLink onClick={handleLogout} to="/">
+                Logout
+              </NavLink>
+            </li>,
+          ];
         case 1:
           return [
             <DropdownMenu.Root>
@@ -52,19 +55,38 @@ const header = () => {
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
-                <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
+                <DropdownMenu.Content
+                  className="DropdownMenuContent"
+                >
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    <NavLink to="/auth-login/auth-gerente/dashboard">Dashboard</NavLink>
+                    <NavLink to="/auth-login/auth-gerente/dashboard">
+                      Dashboard
+                    </NavLink>
                   </DropdownMenu.Item>
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
+                  <DropdownMenu.Sub>
+                    <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
+                      <NavLink to="/auth-login/auth-gerente/produtos">
+                        Produtos
+                      </NavLink>
+                    </DropdownMenu.SubTrigger>
+                    <DropdownMenu.SubContent className="DropdownMenuSubContent">
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/cadastroProduto">
+                          Cadastrar Produto
+                        </NavLink>
+                      </DropdownMenu.Item>
+                    </DropdownMenu.SubContent>
+                  </DropdownMenu.Sub>
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    <NavLink to="/auth-login/auth-gerente/produtos">Produtos</NavLink>
+                    <NavLink to="/auth-login/auth-gerente/auth-adm/fornecedores">
+                      Fornecedores
+                    </NavLink>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    <NavLink to="/auth-login/auth-gerente/auth-adm/fornecedores">Fornecedores</NavLink>
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Item className="DropdownMenuItem">
-                    <NavLink to="/auth-login/auth-gerente/auth-adm/usuariosSistema">Usuários de sistema</NavLink>
+                    <NavLink to="/auth-login/auth-gerente/auth-adm/usuariosSistema">
+                      Usuários de sistema
+                    </NavLink>
                   </DropdownMenu.Item>
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
                   <DropdownMenu.Item className="DropdownMenuItem">
@@ -78,21 +100,25 @@ const header = () => {
                   </DropdownMenu.Item>
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
                   <DropdownMenu.Item className="DropdownMenuItem">
-                  <NavLink to="/auth-login/auth-gerente/banner">Banner</NavLink>
+                    <NavLink to="/auth-login/auth-gerente/banner">
+                      Banner
+                    </NavLink>
                   </DropdownMenu.Item>
                 </DropdownMenu.Content>
               </DropdownMenu.Portal>
-             </DropdownMenu.Root>,
-            <IconePersonalizado to="/auth-login/usuario">Usuário</IconePersonalizado>,
+            </DropdownMenu.Root>,
+            <IconePersonalizado to="/auth-login/usuario">
+              Usuário
+            </IconePersonalizado>,
             <li>
-                <NavLink onClick={handleLogout} to="/">
-                  Logout
-                </NavLink>
-            </li>
-          ]
-          case 2:
-            return [
-              <DropdownMenu.Root>
+              <NavLink onClick={handleLogout} to="/">
+                Logout
+              </NavLink>
+            </li>,
+          ];
+        case 2:
+          return [
+            <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <li>
                   <a>Gerente</a>
@@ -100,41 +126,52 @@ const header = () => {
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
-                <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
+                <DropdownMenu.Content
+                  className="DropdownMenuContent"
+                  sideOffset={5}
+                >
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    <IconePersonalizado to="/auth-login/auth-gerente/dashboard">Dashboard</IconePersonalizado>
+                    <IconePersonalizado to="/auth-login/auth-gerente/dashboard">
+                      Dashboard
+                    </IconePersonalizado>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    <IconePersonalizado to="/auth-login/auth-gerente/produtos">Produtos</IconePersonalizado>
+                    <IconePersonalizado to="/auth-login/auth-gerente/produtos">
+                      Produtos
+                    </IconePersonalizado>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
                     Relatório de Vendas
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    <IconePersonalizado to="/auth-login/auth-gerente/banner">Banner</IconePersonalizado>
+                    <IconePersonalizado to="/auth-login/auth-gerente/banner">
+                      Banner
+                    </IconePersonalizado>
                   </DropdownMenu.Item>
                 </DropdownMenu.Content>
               </DropdownMenu.Portal>
-             </DropdownMenu.Root>,
-              <IconePersonalizado to="/auth-login/usuario">Usuário</IconePersonalizado>,
-              <li>
-                  <NavLink onClick={handleLogout} to="/">
-                    Logout
-                  </NavLink>
-              </li>
-            ]
+            </DropdownMenu.Root>,
+            <IconePersonalizado to="/auth-login/usuario">
+              Usuário
+            </IconePersonalizado>,
+            <li>
+              <NavLink onClick={handleLogout} to="/">
+                Logout
+              </NavLink>
+            </li>,
+          ];
       }
-    } else{
+    } else {
       return [
-            <IconePersonalizado to="/login">Login</IconePersonalizado>,
-            <IconePersonalizado to="/cadastro">Cadastro</IconePersonalizado>,
-            <IconePersonalizado to="/carrinho">Carrinho&#160;<RiShoppingCart2Line/></IconePersonalizado>
-      ]
+        <IconePersonalizado to="/login">Login</IconePersonalizado>,
+        <IconePersonalizado to="/cadastro">Cadastro</IconePersonalizado>,
+        <IconePersonalizado to="/carrinho">
+          Carrinho&#160;
+          <RiShoppingCart2Line />
+        </IconePersonalizado>,
+      ];
     }
-    
-    
-    }
-
+  }
 
   function IconePersonalizado({ to, children, ...props }) {
     const resolvedPath = useResolvedPath(to);
@@ -180,8 +217,8 @@ const header = () => {
             />
           </NavLink>
           <nav>
-            <ul> 
-              <PerfilSelecao/>
+            <ul>
+              <PerfilSelecao />
             </ul>
           </nav>
         </div>

@@ -53,8 +53,8 @@ li a {
   outline: none;
 }
 .DropdownMenuSubTrigger[data-state='open'] {
-  background-color: blue;
-  color: blue;
+  background-color: inherit;
+  color: var(--dark-f);
 }
 .DropdownMenuItem[data-disabled],
 .DropdownMenuCheckboxItem[data-disabled],
@@ -112,10 +112,14 @@ li a {
 }
 
 .IconButton:hover {
-  background-color: blue;
+  color: var(--red-bg);
+  font-size: 16px;
+  cursor: pointer;
 }
 .IconButton:focus {
-  box-shadow: 0 0 0 2px black;
+  color: var(--red-bg);
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .RightSlot {
