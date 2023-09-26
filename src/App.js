@@ -16,6 +16,8 @@ import Banner from "./pages/adm/banner.js";
 import UsuariosSistema from "./pages/adm/usuariosSistema.js";
 import Fornecedores from "./pages/adm/fornecedores.js";
 import CadastroProduto from "./pages/adm/cadastroProdutos.js";
+import EditarProduto from "./pages/adm/editarProduto.js";
+import CadastroFornecedores from "./pages/adm/cadastroFornecedores.js";
 
 function App() {
   return (
@@ -44,6 +46,10 @@ function App() {
               element={<CadastroProduto />}
             />
             <Route
+              path="/auth-login/auth-gerente/editarProduto/:pid"
+              element={<EditarProduto />}
+            />
+            <Route
               path="/auth-login/auth-gerente/banner"
               element={<Banner />}
             />
@@ -56,6 +62,14 @@ function App() {
                 path="/auth-login/auth-gerente/auth-adm/fornecedores"
                 element={<Fornecedores />}
               />
+              <Route
+                path="/auth-login/auth-gerente/auth-adm/cadastroFornecedor"
+                element={<CadastroFornecedores />}
+              />
+              {/* <Route
+                path="/auth-login/auth-gerente/auth-adm/editarFornecedor/:pid"
+                element={<EditarFornecedor />}
+              /> */}
               <Route
                 path="/auth-login/auth-gerente/auth-adm/usuariosSistema"
                 element={<UsuariosSistema />}

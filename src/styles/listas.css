@@ -43,15 +43,12 @@ table tr{
     align-items: center;
 }
 
-.tableicon{
-    border:none
+.tdEspecial{
+    border-color: #fff;
+    padding: 0;
 }
 
-.deleteicon{
-    color: black;
-}
-
-.deleteicon:hover{
-    color: maroon;
+.tdEspecial:hover, .icon:hover {
     cursor: pointer;
+    color: maroon;
 }

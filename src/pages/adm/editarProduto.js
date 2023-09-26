@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../../components/layout/layout.js";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import "../../styles/auth.css";
 
-const CadastroProduto = () => {
+const EditarProduto = () => {
+  const Navigate = useNavigate();
+  const params = useParams();
+  
+  const [id, setId] = useState("");
   const [nome, setNome] = useState("");
   const [tecido, setTecido] = useState("");
   const [estampa, setEstampa] = useState("");
@@ -22,12 +26,37 @@ const CadastroProduto = () => {
 
   const [fornecedores, setFornecedores] = useState([]);
 
-  const Navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
+  const getProduto = async () => {
+    try {
+        const { data } = await axios.get( //A variável tem que se chamar necessariamente data aqui
+            `http://localhost:3001/api/v1/produtos/dados/${params.pid}`
+        );
+        setId(data.produto._id)
+        setNome(data.produto.nome);
+        setTecido(data.produto.tecido);
+        setEstampa(data.produto.estampa);
+        setQuantidade(data.produto.quantidade);
+        setTamanho(data.produto.tamanho);
+        setCor(data.produto.cor);
+        setPreco(data.produto.preco);
+        setCusto(data.produto.custo);
+        setFornecedor(data.produto.fornecedor._id);
+        setMarca(data.produto.marca);
+        setImgFrente(data.produto.imgFrente);
+        setImgTras(data.produto.imgTras);
+        setImgCorpo(data.produto.imgCorpo);
+    } catch (e) {
+        console.log(e);
+      toast.error("Algo deu errado", {
+        className: "toast-message",
+      });
+    }
+  }
+  
+  const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`http://localhost:3001/api/v1/produtos/`, {
+      const res = await axios.put(`http://localhost:3001/api/v1/produtos/${id}`, {
         nome,
         tecido,
         estampa,
@@ -86,14 +115,16 @@ const CadastroProduto = () => {
 
   useEffect(() => {
     listarFornecedores();
+    getProduto();
+    //eslint-disable-next-line
   }, []);
 
   return (
     <Layout>
-      <h1 className="cad">Cadastro de produto</h1>
+      <h1 className="cad">Editar produto</h1>
 
       <div className="forms">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleUpdate}>
           <div className="form-group">
             <div className="group-image">
               <img width={200} height={200} src={imgFrente} />
@@ -211,6 +242,7 @@ const CadastroProduto = () => {
               name="preco"
               id="preco"
               placeholder="R$00.00"
+              value={preco}
               onChange={(e) => setPreco(e.target.value)}
               required
             />
@@ -265,4 +297,4 @@ const CadastroProduto = () => {
   );
 };
 
-export default CadastroProduto;
+export default EditarProduto;

@@ -6,6 +6,31 @@ h1{
     font-size: 4rem;
 }
 
+label{
+  min-width: 10rem;
+}
+
+img{
+  margin-left: 2rem;
+}
+
+input #file-upload-button{
+  border-radius: 5rem;;
+}
+
+.form-image{
+  display: flex;
+}
+
+.image{
+  border: none;
+}
+
+.image:hover{
+  cursor: pointer;
+  box-shadow: none;
+}
+
 .cad{
     margin-left: 12rem;
 }
@@ -15,13 +40,13 @@ h1{
     display: flex;
     margin: 0 auto;
     font-size: larger;
-
+    justify-content: center;
+    margin-top: 3rem;;
 }
 
 .form-group{
     display: flex;
-    justify-content: right;
-    align-content: center;
+    justify-content: center;
 }
 
 .form-group input, select, button{
@@ -38,8 +63,6 @@ h1{
 
 .link{
     padding: 1rem;
-    display: flex;
-    justify-content: center;
   }
   
   .link a{
@@ -53,15 +76,3 @@ h1{
     font-size: 1.5rem;
   }
 
-  #ImgFront::file-selector-button, #ImgBack::file-selector-button{
-    display:none;
-  }
-
-  #ImgFront, #ImgBack{
-    padding-top: 0.5rem;
-    padding-left: 1.5rem;
-  }
-
-  #ImgFront:hover, #ImgBack:hover{
-    cursor: pointer;
-  }

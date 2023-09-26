@@ -55,15 +55,15 @@ const header = () => {
               </DropdownMenu.Trigger>
 
               <DropdownMenu.Portal>
-                <DropdownMenu.Content
-                  className="DropdownMenuContent"
-                >
+                <DropdownMenu.Content className="DropdownMenuContent">
                   <DropdownMenu.Item className="DropdownMenuItem">
                     <NavLink to="/auth-login/auth-gerente/dashboard">
                       Dashboard
                     </NavLink>
                   </DropdownMenu.Item>
+                  
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
+                  
                   <DropdownMenu.Sub>
                     <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
                       <NavLink to="/auth-login/auth-gerente/produtos">
@@ -78,17 +78,30 @@ const header = () => {
                       </DropdownMenu.Item>
                     </DropdownMenu.SubContent>
                   </DropdownMenu.Sub>
-                  <DropdownMenu.Item className="DropdownMenuItem">
-                    <NavLink to="/auth-login/auth-gerente/auth-adm/fornecedores">
-                      Fornecedores
-                    </NavLink>
-                  </DropdownMenu.Item>
+                  
+                  <DropdownMenu.Sub>
+                    <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
+                      <NavLink to="/auth-login/auth-gerente/auth-adm/fornecedores">
+                        Fornecedores
+                      </NavLink>
+                    </DropdownMenu.SubTrigger>
+                    <DropdownMenu.SubContent className="DropdownMenuSubContent">
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/auth-adm/cadastroFornecedor">
+                          Cadastrar Fornecedor
+                        </NavLink>
+                      </DropdownMenu.Item>
+                    </DropdownMenu.SubContent>
+                  </DropdownMenu.Sub>
+
                   <DropdownMenu.Item className="DropdownMenuItem">
                     <NavLink to="/auth-login/auth-gerente/auth-adm/usuariosSistema">
                       Usuários de sistema
                     </NavLink>
                   </DropdownMenu.Item>
+                  
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
+                  
                   <DropdownMenu.Item className="DropdownMenuItem">
                     Relatório de Vendas
                   </DropdownMenu.Item>
@@ -98,7 +111,9 @@ const header = () => {
                   <DropdownMenu.Item className="DropdownMenuItem">
                     Relatório de Lucro
                   </DropdownMenu.Item>
+                  
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
+                  
                   <DropdownMenu.Item className="DropdownMenuItem">
                     <NavLink to="/auth-login/auth-gerente/banner">
                       Banner

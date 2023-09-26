@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import Layout from "../components/layout/layout.js";
+import Layout from "../../components/layout/layout.js";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import "../styles/auth.css";
+import "../../styles/auth.css";
 
-const CadastroUsuario = () => {
+const CadastroFornecedor = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [dataNascimento, setDataNascimento] = useState("");
+  const [cnpj, setCnpj] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [senha, setSenha] = useState("");
   const [cep, setCEP] = useState("");
   const [endereco, setEndereco] = useState("");
   const [numEnd, setNumEnd] = useState("");
@@ -19,21 +17,18 @@ const CadastroUsuario = () => {
   const [complementoEnd, setComplementoEnd] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
-  const [perfil, setPerfil] = useState("");
   const Navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/v1/auth/cadastro`,
+        `http://localhost:3001/api/v1/fornecedores/cadastro`,
         {
           nome,
           email,
-          cpf,
-          dataNascimento,
+          cnpj,
           telefone,
-          senha,
           cep,
           endereco,
           numEnd,
@@ -41,14 +36,13 @@ const CadastroUsuario = () => {
           complementoEnd,
           cidade,
           estado,
-          perfil,
         }
       );
 
       if (res && res.data.success) {
         toast.success(res.data.message);
         setTimeout(() => {
-          Navigate("/login");
+          Navigate("/auth-login/auth-gerente/auth-adm/fornecedores");
         }, 2000);
       } else {
         toast.error(res.data.message, {
@@ -64,7 +58,7 @@ const CadastroUsuario = () => {
 
   return (
     <Layout>
-      <h1 className="cad">Cadastro</h1>
+      <h1 className="cad">Cadastro de fornecedor</h1>
       <div className="forms">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -91,25 +85,14 @@ const CadastroUsuario = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="Cpf">CPF</label>
+            <label htmlFor="Cnpj">CNPJ</label>
             <input
               type="number"
-              name="Cpf"
-              id="Cpf"
-              placeholder="000.000.000-00"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="aniversario">Aniversário</label>
-            <input
-              type="date"
-              name="aniversario"
-              id="aniversario"
-              value={dataNascimento}
-              onChange={(e) => setDataNascimento(e.target.value)}
+              name="Cnpj"
+              id="Cnpj"
+              placeholder="00.000.000/0000-00"
+              value={cnpj}
+              onChange={(e) => setCnpj(e.target.value)}
               required
             />
           </div>
@@ -126,17 +109,6 @@ const CadastroUsuario = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="senha">Senha</label>
-            <input
-              type="password"
-              name="senha"
-              id="senha"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
             <label htmlFor="cep">CEP</label>
             <input
               type="number"
@@ -149,7 +121,7 @@ const CadastroUsuario = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="street">Rua</label>
+            <label htmlFor="endereco">Rua</label>
             <input
               type="text"
               name="rua"
@@ -189,7 +161,6 @@ const CadastroUsuario = () => {
               id="complemento"
               value={complementoEnd}
               onChange={(e) => setComplementoEnd(e.target.value)}
-              required
             />
           </div>
           <div className="form-group">
@@ -243,29 +214,8 @@ const CadastroUsuario = () => {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="perfil">Perfil</label>
-            <select
-              name="perfil"
-              id="perfil"
-              value={perfil}
-              onChange={(e) => setPerfil(e.target.value)}
-              required
-            >
-              <option value={0}>Cliente</option>
-              <option value={1}>Admin</option>
-              <option value={2}>Gerente</option>
-            </select>
-          </div>
-          <div className="form-group">
             <label></label>
             <button type="submit">Cadastrar</button>
-          </div>
-          <div className="form-group">
-            <div className="link cad">
-              <NavLink to="/login">
-                <p>Realizar Login</p>
-              </NavLink>
-            </div>
           </div>
         </form>
       </div>
@@ -273,4 +223,4 @@ const CadastroUsuario = () => {
   );
 };
 
-export default CadastroUsuario;
+export default CadastroFornecedor;
