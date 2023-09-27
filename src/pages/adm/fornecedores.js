@@ -31,7 +31,7 @@ const FornecedoresPage = () => {
 
   const handleDelete = async (_id) => {
     await axios
-      .put("http://localhost:3001/api/v1/produtos/ativacao/" + _id)
+      .put("http://localhost:3001/api/v1/fornecedores/delete/" + _id)
       .then(window.location.reload())
       .catch((err) => {
         toast.error(err.message, {
@@ -66,7 +66,7 @@ const FornecedoresPage = () => {
                 <td>{f.estado}</td>
                 <td className="tdEspecial">
                   <NavLink
-                    to={`/auth-login/auth-gerente/editarProduto/${f._id}`}
+                    to={`/auth-login/auth-gerente/auth-adm/editarFornecedor/${f._id}`}
                   >
                     <RiFileEditLine size="25px" />
                   </NavLink>

@@ -40,7 +40,9 @@ const CadastroFornecedor = () => {
       );
 
       if (res && res.data.success) {
-        toast.success(res.data.message);
+        toast.success(res.data.message, {
+          className: "toast-message",
+        });
         setTimeout(() => {
           Navigate("/auth-login/auth-gerente/auth-adm/fornecedores");
         }, 2000);

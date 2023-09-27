@@ -73,7 +73,9 @@ const EditarProduto = () => {
       });
 
       if (res && res.data.success) {
-        toast.success(res.data.message);
+        toast.success(res.data.message, {
+          className: "toast-message",
+        });
         setTimeout(() => {
           Navigate("/auth-login/auth-gerente/produtos");
         }, 2000);
@@ -289,7 +291,7 @@ const EditarProduto = () => {
           </div>
           <div className="form-group">
           <label></label>
-            <button type="submit">Cadastrar</button>
+            <button type="submit">Editar</button>
           </div>
         </form>
       </div>
