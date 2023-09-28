@@ -61,9 +61,9 @@ const header = () => {
                       Dashboard
                     </NavLink>
                   </DropdownMenu.Item>
-                  
+
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
-                  
+
                   <DropdownMenu.Sub>
                     <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
                       <NavLink to="/auth-login/auth-gerente/produtos">
@@ -78,7 +78,7 @@ const header = () => {
                       </DropdownMenu.Item>
                     </DropdownMenu.SubContent>
                   </DropdownMenu.Sub>
-                  
+
                   <DropdownMenu.Sub>
                     <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
                       <NavLink to="/auth-login/auth-gerente/auth-adm/fornecedores">
@@ -94,14 +94,23 @@ const header = () => {
                     </DropdownMenu.SubContent>
                   </DropdownMenu.Sub>
 
-                  <DropdownMenu.Item className="DropdownMenuItem">
-                    <NavLink to="/auth-login/auth-gerente/auth-adm/usuariosSistema">
-                      Usuários de sistema
-                    </NavLink>
-                  </DropdownMenu.Item>
-                  
+                  <DropdownMenu.Sub>
+                    <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
+                      <NavLink to="/auth-login/auth-gerente/auth-adm/usuariosSistema">
+                        Usuários de sistema
+                      </NavLink>
+                    </DropdownMenu.SubTrigger>
+                    <DropdownMenu.SubContent className="DropdownMenuSubContent">
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/auth-adm/cadastroUsuario">
+                          Cadastrar Usuário
+                        </NavLink>
+                      </DropdownMenu.Item>
+                    </DropdownMenu.SubContent>
+                  </DropdownMenu.Sub>
+
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
-                  
+
                   <DropdownMenu.Item className="DropdownMenuItem">
                     Relatório de Vendas
                   </DropdownMenu.Item>
@@ -111,9 +120,9 @@ const header = () => {
                   <DropdownMenu.Item className="DropdownMenuItem">
                     Relatório de Lucro
                   </DropdownMenu.Item>
-                  
+
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
-                  
+
                   <DropdownMenu.Item className="DropdownMenuItem">
                     <NavLink to="/auth-login/auth-gerente/banner">
                       Banner
@@ -146,22 +155,22 @@ const header = () => {
                   sideOffset={5}
                 >
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    <IconePersonalizado to="/auth-login/auth-gerente/dashboard">
+                    <NavLink to="/auth-login/auth-gerente/dashboard">
                       Dashboard
-                    </IconePersonalizado>
+                    </NavLink>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    <IconePersonalizado to="/auth-login/auth-gerente/produtos">
+                    <NavLink to="/auth-login/auth-gerente/produtos">
                       Produtos
-                    </IconePersonalizado>
+                    </NavLink>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
                     Relatório de Vendas
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    <IconePersonalizado to="/auth-login/auth-gerente/banner">
+                    <NavLink to="/auth-login/auth-gerente/banner">
                       Banner
-                    </IconePersonalizado>
+                    </NavLink>
                   </DropdownMenu.Item>
                 </DropdownMenu.Content>
               </DropdownMenu.Portal>

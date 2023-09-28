@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Layout from "../components/layout/layout.js";
+import Layout from "../../components/layout/layout.js";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import "../styles/auth.css";
+import "../../styles/auth.css";
 
 const CadastroUsuario = () => {
   const [nome, setNome] = useState("");
@@ -19,6 +19,7 @@ const CadastroUsuario = () => {
   const [complementoEnd, setComplementoEnd] = useState("");
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
+  const [perfil, setPerfil] = useState("");
   const Navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -40,7 +41,7 @@ const CadastroUsuario = () => {
           complementoEnd,
           cidade,
           estado,
-          perfil:0,
+          perfil,
         }
       );
 
@@ -49,7 +50,7 @@ const CadastroUsuario = () => {
           className: "toast-message",
         });
         setTimeout(() => {
-          Navigate("/login");
+          Navigate("/auth-login/auth-gerente/auth-adm/usuariosSistema");
         }, 2000);
       } else {
         toast.error(res.data.message, {
@@ -65,7 +66,7 @@ const CadastroUsuario = () => {
 
   return (
     <Layout>
-      <h1 className="cad">Cadastro</h1>
+      <h1 className="cad">Cadastrar usuário de sistema</h1>
       <div className="forms">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -244,15 +245,22 @@ const CadastroUsuario = () => {
             </select>
           </div>
           <div className="form-group">
-            <label></label>
-            <button type="submit">Cadastrar</button>
+            <label htmlFor="perfil">Perfil</label>
+            <select
+              name="perfil"
+              id="perfil"
+              value={perfil}
+              onChange={(e) => setPerfil(e.target.value)}
+              required
+            >
+              <option value="">-- Selecionar --</option>
+              <option value={1}>Admin</option>
+              <option value={2}>Gerente</option>
+            </select>
           </div>
           <div className="form-group">
-            <div className="link cad">
-              <NavLink to="/login">
-                <p>Realizar Login</p>
-              </NavLink>
-            </div>
+            <label></label>
+            <button type="submit">Cadastrar</button>
           </div>
         </form>
       </div>
