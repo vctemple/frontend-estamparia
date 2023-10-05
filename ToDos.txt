@@ -1,0 +1,9 @@
+- Implementar máscaras nos cadastros;
+- Melhorar botão de inserir imagem dos produtos;
+- Melhorar display de quando não há imagem no cadastro de produtos;
+- Centralizar pacman;
+- Redirecionar para login quando expira sessão;
+- Alterar persistencia de dados para localsession;
+- Adicionar popup para confirmar exclusão de usuário;
+- Alterar display de data de nascimento;
+- Adicionar espaço para imagem no detalhamento do usuário;

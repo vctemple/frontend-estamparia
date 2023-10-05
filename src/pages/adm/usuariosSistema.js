@@ -5,7 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import {
-  RiFileEditLine,
+  RiFileUserFill,
   RiCloseCircleFill,
   RiCheckboxCircleFill,
   RiDeleteBin5Line,
@@ -90,6 +90,15 @@ const UsuariosPage = () => {
                 <td>{u.email}</td>
                 <td>{u.telefone}</td>
                 <td>{mostraPerfil(u.perfil)}</td>
+                <td
+                  style={{ borderColor: "#fff", padding: "0" }}
+                >
+                  <NavLink
+                    to={`/auth-login/auth-gerente/auth-adm/usuarioDados/${u._id}`}
+                  >
+                    <RiFileUserFill size="25px" className="icon" />
+                  </NavLink>
+                </td>
                 <td
                   onClick={() => handleAtivacao(u._id, u.ativo)}
                   style={{ borderColor: "#fff", padding: "0" }}

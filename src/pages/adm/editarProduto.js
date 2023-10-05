@@ -128,8 +128,8 @@ const EditarProduto = () => {
       <div className="forms">
         <form onSubmit={handleUpdate}>
           <div className="form-group">
-            <div className="group-image">
-              <img width={200} height={200} src={imgFrente} />
+            <div className="group-image" style={{marginLeft: "5rem"}}>
+              <img width={200} height={200} src={imgFrente} style={{marginLeft: "2rem"}}/>
                 <input
                   className="image"
                   accept="image/*"
@@ -138,7 +138,7 @@ const EditarProduto = () => {
                 />
             </div>
             <div>
-              <img width={200} height={200} src={imgTras} />
+              <img width={200} height={200} src={imgTras} style={{marginLeft: "2rem"}}/>
                 <input
                   className="image"
                   accept="image/*"
@@ -147,7 +147,7 @@ const EditarProduto = () => {
                 />
             </div>
             <div>
-              <img width={200} height={200} src={imgCorpo} />
+              <img width={200} height={200} src={imgCorpo} style={{marginLeft: "2rem"}}/>
                 <input
                   className="image"
                   accept="image/*"

@@ -159,11 +159,22 @@ const header = () => {
                       Dashboard
                     </NavLink>
                   </DropdownMenu.Item>
-                  <DropdownMenu.Item className="DropdownMenuItem">
-                    <NavLink to="/auth-login/auth-gerente/produtos">
-                      Produtos
-                    </NavLink>
-                  </DropdownMenu.Item>
+                  
+                  <DropdownMenu.Sub>
+                    <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
+                      <NavLink to="/auth-login/auth-gerente/produtos">
+                        Produtos
+                      </NavLink>
+                    </DropdownMenu.SubTrigger>
+                    <DropdownMenu.SubContent className="DropdownMenuSubContent">
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/cadastroProduto">
+                          Cadastrar Produto
+                        </NavLink>
+                      </DropdownMenu.Item>
+                    </DropdownMenu.SubContent>
+                  </DropdownMenu.Sub>
+                  
                   <DropdownMenu.Item className="DropdownMenuItem">
                     Relatório de Vendas
                   </DropdownMenu.Item>

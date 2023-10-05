@@ -20,6 +20,7 @@ import EditarProduto from "./pages/adm/editarProduto.js";
 import CadastroFornecedores from "./pages/adm/cadastroFornecedores.js";
 import EditarFornecedor from "./pages/adm/editarFornecedor.js";
 import CadastroUsuario from "./pages/adm/cadastrarUsuario.js";
+import UsuarioDados from "./pages/adm/usuarioDados.js";
 
 function App() {
   return (
@@ -75,6 +76,10 @@ function App() {
               <Route
                 path="/auth-login/auth-gerente/auth-adm/usuariosSistema"
                 element={<UsuariosSistema />}
+              />
+              <Route
+                path="/auth-login/auth-gerente/auth-adm/usuarioDados/:pid"
+                element={<UsuarioDados />}
               />
               <Route
                 path="/auth-login/auth-gerente/auth-adm/cadastroUsuario"
