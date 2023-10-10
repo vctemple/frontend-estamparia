@@ -10,6 +10,8 @@ import "../styles/card.css";
 const Home = () => {
   const [auth, setAuth] = UseAuth();
   const [produtos, setProdutos] = useState([]);
+  const [tam, setTam] = useState([]);
+  const [cor, setCor] = useState([]);
 
   const listarProdutos = async () => {
     try {
@@ -22,6 +24,41 @@ const Home = () => {
       });
     }
   };
+
+  function removeDaLista (arr, e){
+    let newArr = [];
+    for(let i=0; i<=arr.length; i++){
+      if(arr[i]!==e && arr[i] != undefined){
+        newArr.push(arr[i]);
+      }
+    }
+    console.log(newArr)
+    return newArr;
+  }
+  
+  const handleTamanhos = (t) => {
+    const resultado = tam.includes(t);
+    if (resultado){
+      let arrNovo = removeDaLista(tam, t);
+      setTam(arrNovo);
+    } else {
+      let novoArr = tam;
+      novoArr.push(t);
+      setTam(novoArr);
+    }
+  }
+
+  const handleCores = (c) => {
+    const resultado = cor.includes(c);
+    if (resultado){
+      let arrNovo = removeDaLista(cor, c);
+      setCor(arrNovo);
+    } else {
+      let novoArr = cor;
+      novoArr.push(c);
+      setCor(novoArr);
+    }
+  }
 
   useEffect(() => {
     listarProdutos();
@@ -36,48 +73,48 @@ const Home = () => {
             <h3 style={{marginBottom: "2rem"}}>Filtro de produtos</h3>
             <div style={{marginBottom: "2rem"}}>
               <h4>Tamanho</h4>
-              <label class="checkContainer">Baby Look
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Baby Look
+                <input type="checkbox" onChange={() => handleTamanhos("BL")}/>
+                <span className="checkmark"></span>
               </label>
-              <label class="checkContainer">Pequeno
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Pequeno
+                <input type="checkbox" onChange={() => handleTamanhos("P")}/>
+                <span className="checkmark"></span>
               </label>
-              <label class="checkContainer">Médio
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Médio
+                <input type="checkbox" onChange={() => handleTamanhos("M")}/>
+                <span className="checkmark"></span>
               </label>
-              <label class="checkContainer">Grande
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Grande
+                <input type="checkbox" onChange={() => handleTamanhos("G")}/>
+                <span className="checkmark"></span>
               </label>
-              <label class="checkContainer">Extra Grande
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Extra Grande
+                <input type="checkbox" onChange={() => handleTamanhos("XL")}/>
+                <span className="checkmark"></span>
               </label>
             </div>
             <div>
               <h4>Cor</h4>
-              <label class="checkContainer">Branco
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Branco
+                <input type="checkbox" onChange={() => handleCores("Branco")}/>
+                <span className="checkmark"></span>
               </label>
-              <label class="checkContainer">Preto
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Preto
+                <input type="checkbox" onChange={() => handleCores("Preto")}/>
+                <span className="checkmark"></span>
               </label>
-              <label class="checkContainer">Cinza
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Cinza
+                <input type="checkbox" onChange={() => handleCores("Cinza")}/>
+                <span className="checkmark"></span>
               </label>
-              <label class="checkContainer">Azul
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Azul
+                <input type="checkbox" onChange={() => handleCores("Azul")}/>
+                <span className="checkmark"></span>
               </label>
-              <label class="checkContainer">Rosa
-                <input type="checkbox" />
-                <span class="checkmark"></span>
+              <label className="checkContainer">Rosa
+                <input type="checkbox" onChange={() => handleCores("Rosa")}/>
+                <span className="checkmark"></span>
               </label>
             </div>
             

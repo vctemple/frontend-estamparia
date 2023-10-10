@@ -139,9 +139,9 @@ const UsuarioDados = () => {
         </table>
       </div>
       <div style={{display: "flex", alignItems: "center", flexFlow: "column" }}>
-        <NavLink style={{display: "flex"}} to={"/auth-login/auth-gerente/auth-adm/usuariosSistema"}>
+        <NavLink style={{display: "flex", alignItems: "center"}} to={"/auth-login/auth-gerente/auth-adm/usuariosSistema"}>
           <RiArrowLeftCircleFill size="25px" className="icon"/>
-          <h2 style={{padding: "0.5rem" }}>Voltar</h2> 
+          <h4 style={{padding: "0.3rem", marginTop: "1.5rem" }}>Voltar</h4> 
         </NavLink>
         
       </div>
