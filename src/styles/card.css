@@ -12,7 +12,7 @@
 
 .button1{
     border: none;
-    background-color:dimgray;
+    background-color:#696969;
     color: var(--light-f);
     transition: all 100ms ease-in-out;
     max-width: 90%;
@@ -20,7 +20,7 @@
 
 .button2{
     border: none;
-    background-color:slategray;
+    background-color:#708090;
     color: var(--light-f);
     transition: all 100ms ease-in-out;
     max-width: 90%;

@@ -49,6 +49,9 @@ const EditarProduto = () => {
         console.log(e);
       toast.error("Algo deu errado", {
         className: "toast-message",
+        position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
       });
     }
   }
@@ -75,6 +78,9 @@ const EditarProduto = () => {
       if (res && res.data.success) {
         toast.success(res.data.message, {
           className: "toast-message",
+          position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
         });
         setTimeout(() => {
           Navigate("/auth-login/auth-gerente/produtos");
@@ -82,11 +88,17 @@ const EditarProduto = () => {
       } else {
         toast.error(res.data.message, {
           className: "toast-message",
+          position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
         });
       }
     } catch (err) {
       toast.error("Algo deu errado", {
         className: "toast-message",
+        position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
       });
     }
   };

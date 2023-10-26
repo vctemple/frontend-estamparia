@@ -23,24 +23,33 @@ const Login = () => {
       if (res && res.data.success) {
         toast.success(res.data.message, {
           className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark",
         });
         setAuth({
           ...auth,
           usuario: res.data.usuario,
           token: res.data.token,
         });
-        localStorage.setItem("auth", JSON.stringify(res.data));
+        sessionStorage.setItem("auth", JSON.stringify(res.data));
         setTimeout(() => {
           Navigate("/");
         }, 2000);
       } else {
         toast.error(res.data.message, {
           className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark",
         });
       }
     } catch (err) {
       toast.error("Algo deu errado", {
         className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
       });
     }
   };

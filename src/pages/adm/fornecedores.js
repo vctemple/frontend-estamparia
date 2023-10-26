@@ -20,6 +20,9 @@ const FornecedoresPage = () => {
       console.log(e);
       toast.error("Algo deu errado", {
         className: "toast-message",
+        position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
       });
     }
   };
@@ -36,6 +39,9 @@ const FornecedoresPage = () => {
       .catch((err) => {
         toast.error(err.message, {
           className: "toast-message",
+          position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
         });
       });
   };

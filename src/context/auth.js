@@ -11,7 +11,7 @@ const ProvideAuth = ({ children }) => {
  
     //Função para persistir os dados sempre que a página é atualizada
     useEffect(() => { 
-        const contexto = localStorage.getItem("auth");
+        const contexto = sessionStorage.getItem("auth");
         if(contexto) {
             const contextoParsed = JSON.parse(contexto);
             setAuth({

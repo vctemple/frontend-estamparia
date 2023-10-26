@@ -61,6 +61,7 @@ button:hover{
 .toast-message{
   font-size: 1.4rem;
   max-width: 40rem;
+  position: "top-center";
 }
 
 .toast-message button{

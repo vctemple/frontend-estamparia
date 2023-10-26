@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/header.css";
 import logo1 from "../../imgs/Estamparia_logo1.png";
 import logo2 from "../../imgs/Estamparia_logo2.png";
 import { NavLink, useMatch, useResolvedPath } from "react-router-dom";
 import { RiShoppingCart2Line, RiShoppingCart2Fill } from "react-icons/ri";
-import { UseAuth } from "../../context/auth";
+import { UseAuth } from "../../context/auth.js";
 import { toast } from "react-toastify";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import "../../styles/dropDownMenu.css";
 
-const header = () => {
+const Header = () => {
   const [auth, setAuth] = UseAuth();
+  const [carrinho, setCarrinho] = useState([]);
   const handleLogout = () => {
     try {
       setAuth({
@@ -18,25 +19,40 @@ const header = () => {
         usuario: null,
         token: "",
       });
-      localStorage.removeItem("auth");
+      sessionStorage.removeItem("auth");
       toast.success("Logout com sucesso!", {
         className: "toast-message",
+        position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
       });
     } catch (e) {
       toast.error("Algo deu errado!", {
         className: "toast-message",
+        position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
       });
     }
   };
 
+  useEffect(() => {
+    const data = window.sessionStorage.getItem("carrinho")
+    if(data !== null) setCarrinho(JSON.parse(sessionStorage.getItem("carrinho")))
+  }, [])
+
+  useEffect(() => {
+    setCarrinho(JSON.parse(sessionStorage.getItem("carrinho")))
+  }, [sessionStorage.getItem("carrinho")])
+  
   function PerfilSelecao() {
     if (auth?.usuario) {
       switch (auth.usuario.perfil) {
         case 0:
           return [
             <IconePersonalizado to="/carrinho">
-              Carrinho&#160;
-              <RiShoppingCart2Line />
+              Carrinho&#160; {carrinho?.length ? <RiShoppingCart2Fill /> : <RiShoppingCart2Line />} ({carrinho?.length})
+
             </IconePersonalizado>,
             <IconePersonalizado to="/usuario">Usuário</IconePersonalizado>,
             <li>
@@ -159,7 +175,7 @@ const header = () => {
                       Dashboard
                     </NavLink>
                   </DropdownMenu.Item>
-                  
+
                   <DropdownMenu.Sub>
                     <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
                       <NavLink to="/auth-login/auth-gerente/produtos">
@@ -174,7 +190,7 @@ const header = () => {
                       </DropdownMenu.Item>
                     </DropdownMenu.SubContent>
                   </DropdownMenu.Sub>
-                  
+
                   <DropdownMenu.Item className="DropdownMenuItem">
                     Relatório de Vendas
                   </DropdownMenu.Item>
@@ -201,8 +217,7 @@ const header = () => {
         <IconePersonalizado to="/login">Login</IconePersonalizado>,
         <IconePersonalizado to="/cadastro">Cadastro</IconePersonalizado>,
         <IconePersonalizado to="/carrinho">
-          Carrinho&#160;
-          <RiShoppingCart2Line />
+          Carrinho&#160; {carrinho?.length ? <RiShoppingCart2Fill /> : <RiShoppingCart2Line />} {carrinho?.length}
         </IconePersonalizado>,
       ];
     }
@@ -263,6 +278,6 @@ const header = () => {
   );
 };
 
-//function Dropdown()
 
-export default header;
+
+export default Header;

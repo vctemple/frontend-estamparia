@@ -22,6 +22,9 @@ const UsuariosPage = () => {
       console.log(e);
       toast.error("Algo deu errado", {
         className: "toast-message",
+        position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
       });
     }
   };

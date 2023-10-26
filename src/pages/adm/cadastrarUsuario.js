@@ -48,6 +48,9 @@ const CadastroUsuario = () => {
       if (res && res.data.success) {
         toast.success(res.data.message, {
           className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark",
         });
         setTimeout(() => {
           Navigate("/auth-login/auth-gerente/auth-adm/usuariosSistema");
@@ -55,11 +58,17 @@ const CadastroUsuario = () => {
       } else {
         toast.error(res.data.message, {
           className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark",
         });
       }
     } catch (err) {
       toast.error("Algo deu errado", {
         className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
       });
     }
   };

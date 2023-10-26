@@ -5,8 +5,6 @@ import PaginaNaoEncontrada from "./pages/paginaNaoEncontrada.js";
 import Login from "./pages/login.js";
 import Cadastro from "./pages/cadastro.js";
 import Dashboard from "./pages/adm/dashboard.js";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import RotaPrivada from "./components/routes/rotaPrivada.js";
 import Usuario from "./pages/usuario/usuario.js";
 import RotaAdm from "./components/routes/rotaAdm.js";
@@ -21,6 +19,7 @@ import CadastroFornecedores from "./pages/adm/cadastroFornecedores.js";
 import EditarFornecedor from "./pages/adm/editarFornecedor.js";
 import CadastroUsuario from "./pages/adm/cadastrarUsuario.js";
 import UsuarioDados from "./pages/adm/usuarioDados.js";
+import DetalheProduto from "./pages/detalheProduto.js";
 
 function App() {
   return (
@@ -31,6 +30,7 @@ function App() {
         <Route path="*" element={<PaginaNaoEncontrada />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/produto/:pid" element={<DetalheProduto />} />
 
         <Route path="/auth-login" element={<RotaPrivada />}>
           <Route path="/auth-login/usuario" element={<Usuario />} />
