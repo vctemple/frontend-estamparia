@@ -51,10 +51,10 @@ const Header = () => {
         case 0:
           return [
             <IconePersonalizado to="/carrinho">
-              Carrinho&#160; {carrinho?.length ? <RiShoppingCart2Fill /> : <RiShoppingCart2Line />} ({carrinho?.length})
+              Carrinho&#160; {carrinho?.length ? <RiShoppingCart2Fill /> : <RiShoppingCart2Line />} {carrinho?.length}
 
             </IconePersonalizado>,
-            <IconePersonalizado to="/usuario">Usuário</IconePersonalizado>,
+            <IconePersonalizado to="/auth-login/usuario">Usuário</IconePersonalizado>,
             <li>
               <NavLink onClick={handleLogout} to="/">
                 Logout

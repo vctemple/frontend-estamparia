@@ -3,6 +3,8 @@
     grid-template-columns: 1fr 5fr;
     align-items: center;
     margin: 3rem;
+    display: flex;
+    align-items: flex-start;
 }
 
 .grid2{

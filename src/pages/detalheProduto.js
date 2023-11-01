@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import Layout from "../components/layout/layout.js";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -10,7 +10,8 @@ const DetalheProduto = () => {
   const Navigate = useNavigate();
   const params = useParams();
   const [produto, setProduto] = useState({});
-  const [qtd, setQtd] = useState("1");
+  const [quantidade, setQuantidade] = useState("1");
+  const [carrinho, setCarrinho] = useState([]);
 
   const getProduto = async () => {
     try {
@@ -29,6 +30,21 @@ const DetalheProduto = () => {
       });
     }
   };
+
+  const navegarCart = () => {
+    Navigate("/carrinho");
+  }
+
+  const handleCarrinho = (p) => {
+    let newArr = JSON.parse(sessionStorage.getItem("carrinho"));
+    if (!newArr) newArr = carrinho
+    newArr.push({
+      ...p,
+       qtd: quantidade
+    });
+    setCarrinho(newArr);
+    sessionStorage.setItem("carrinho", JSON.stringify(newArr));
+  }
 
   useEffect(() => {
     getProduto();
@@ -92,16 +108,27 @@ const DetalheProduto = () => {
               type="number"
               name="numero"
               id="nummero"
-              value={qtd}
-              onChange={(e) => setQtd(e.target.value)}
+              value={quantidade}
+              onChange={(e) => setQuantidade(e.target.value)}
               required
               style={{maxWidth:"5rem", minHeight:"3rem", marginLeft:"3rem", fontSize:"2rem"}}
             />
           </div>
-            <button style={{margin: "1rem 0"}} >
+            <button style={{margin: "1rem 0"}} onClick={() => {
+                    handleCarrinho(produto);
+                    toast.success("Item adicionado ao carrinho", {
+                      className: "toast-message",
+                      position: "top-center",
+                      autoClose: 1500,
+                      theme: "dark"
+                    });
+                    }}>
               Adicionar ao carrinho
             </button>
-            <button style={{ margin: "1rem 0"}}>Comprar</button>
+            <button style={{ margin: "1rem 0"}} onClick={() => {
+                    handleCarrinho(produto);
+                    navegarCart();
+                    }}>Comprar</button>
           </div>
         </div>
       </div>

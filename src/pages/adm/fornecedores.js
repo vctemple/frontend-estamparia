@@ -50,10 +50,10 @@ const FornecedoresPage = () => {
     <Layout>
       <h1>Lista de Fornecedores</h1>
       <div className="table">
-        <table>
+        <table style={{width: "auto"}}>
           <thead>
             <tr>
-              <th>Nome</th>
+              <th style={{width: "15rem"}}>Nome</th>
               <th>Email</th>
               <th>CNPJ</th>
               <th>Telefone</th>

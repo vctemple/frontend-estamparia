@@ -70,7 +70,7 @@ const UsuariosPage = () => {
     <Layout>
       <h1>Lista de Usuários</h1>
       <div className="table">
-        <table>
+        <table style={{width: "auto"}}>
           <thead>
             <tr>
               <th style={{ border: 0, backgroundColor: "#fff" }}></th>
@@ -83,12 +83,12 @@ const UsuariosPage = () => {
           <tbody>
             {Usuarios?.map((u) => (
               <tr key={u._id}>
-                <img
+                <td><img
                   width={50}
                   height={50}
                   src={u.imagem}
                   style={{ borderRadius: "10px" }}
-                ></img>
+                ></img></td>
                 <td>{u.nome}</td>
                 <td>{u.email}</td>
                 <td>{u.telefone}</td>

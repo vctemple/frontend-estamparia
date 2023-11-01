@@ -3,8 +3,9 @@
 - Melhorar display de quando não há imagem no cadastro de produtos;
 - Centralizar pacman;
 - Redirecionar para login quando expira sessão;
-- Adicionar popup para confirmar exclusão de usuário;
+- Adicionar popup para confirmar exclusões;
 - Alterar display de data de nascimento;
 - Adicionar espaço para imagem no detalhamento do usuário;
 - Implementar função de pesquisa;
 - Implementar função de ordenação;
+- agrupar mesmos itens no carrinho;

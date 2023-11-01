@@ -53,3 +53,7 @@ table tr{
     cursor: pointer;
     color: maroon;
 }
+
+td{
+    width: 5rem;
+}

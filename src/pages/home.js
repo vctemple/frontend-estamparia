@@ -3,12 +3,11 @@ import Layout from "../components/layout/layout.js";
 import { UseAuth } from "../context/auth.js";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import "../styles/grid.css";
 import "../styles/card.css";
 
 const Home = () => {
-  const [auth, setAuth] = UseAuth();
   const [carrinho, setCarrinho] = useState([])
   const [produtos, setProdutos] = useState([]);
   const [tam, setTam] = useState([]);
@@ -16,6 +15,7 @@ const Home = () => {
   const [precoMin, setPrecoMin] = useState("");
   const [precoMax, setPrecoMax] = useState("");
   const [change, setChange] = useState(false);
+  const Navigate = useNavigate();
 
   const listarProdutos = async () => {
     try {
@@ -29,6 +29,10 @@ const Home = () => {
     }
   };
 
+  const navegarCart = () => {
+    Navigate("/carrinho");
+  }
+
   const filtrarProdutos = async () => {
     try {
       const { data } = await axios.post(
@@ -40,6 +44,9 @@ const Home = () => {
       console.log(e);
       toast.error("Algo deu errado", {
         className: "toast-message",
+        position: "top-center",
+                    autoClose: 1500,
+                    theme: "dark"
       });
     }
   };
@@ -84,7 +91,10 @@ const Home = () => {
   const handleCarrinho = (p) => {
     let newArr = JSON.parse(sessionStorage.getItem("carrinho"));
     if (!newArr) newArr = carrinho
-    newArr.push(p);
+    newArr.push({
+      ...p,
+      qtd: 1
+    });
     setCarrinho(newArr);
     sessionStorage.setItem("carrinho", JSON.stringify(newArr));
     setChange(true)
@@ -232,7 +242,10 @@ const Home = () => {
                 >
                   Adicionar ao carrinho
                 </button>
-                <button className="button2">Comprar</button>
+                <button className="button2" onClick={() => {
+                    handleCarrinho(p);
+                    navegarCart();
+                    }}>Comprar</button>
               </div>
             </div>
           ))}

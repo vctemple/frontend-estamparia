@@ -50,7 +50,7 @@ const ProdutosPage = () => {
     <Layout>
       <h1>Lista de Produtos</h1>
       <div className="table">
-        <table>
+        <table style={{width: "auto"}}>
           <thead>
             <tr>
               <th style={{ border: 0, backgroundColor: "#fff" }}></th>
@@ -84,7 +84,7 @@ const ProdutosPage = () => {
                 <td>{p.cor}</td>
                 <td>{p.preco}</td>
                 <td>{p.custo}</td>
-                <td>{p.fornecedor.nome}</td>
+                <td style={{width: "15rem"}}>{p.fornecedor.nome}</td>
                 <td>{p.marca}</td>
                 <td className="tdEspecial">
                   <NavLink
