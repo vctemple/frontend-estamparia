@@ -20,3 +20,13 @@ td{
     cursor: pointer;
     color: maroon;
 }
+
+.tabela td{
+    display: flex;
+    width: inherit;
+    justify-content: space-between;
+}
+
+.tabela p{
+    display: contents;
+}

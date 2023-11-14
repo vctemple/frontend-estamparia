@@ -4,6 +4,8 @@ import { UseAuth } from "../../context/auth";
 import { toast } from "react-toastify";
 import axios from "axios";
 import "../../styles/auth.css";
+import "../../styles/carrinho.css";
+import format from "date-fns/format";
 
 const Usuario = () => {
   const [auth, setAuth] = UseAuth();
@@ -23,6 +25,7 @@ const Usuario = () => {
   const [ativo, setAtivo] = useState("");
   const [senhaAntiga, setSenhaAntiga] = useState("");
   const [senhaNova, setSenhaNova] = useState("");
+  const [historico, setHistorico] = useState([]);
 
   const getUsuario = async () => {
     try {
@@ -49,7 +52,26 @@ const Usuario = () => {
       setCidade(data.usuario.cidade);
       setEstado(data.usuario.estado);
       setAtivo(data.usuario.ativo);
-      setImagem(data.usuario.imagem)
+      setImagem(data.usuario.imagem);
+    } catch (e) {
+      console.log(e);
+      toast.error("Algo deu errado", {
+        className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
+      });
+    }
+  };
+
+  const getHistorico = async () => {
+    try {
+      const { data } = await axios.get(
+        //A variável tem que se chamar necessariamente data aqui
+        `http://localhost:3001/api/v1/pedidos/${auth.usuario._id}`
+      );
+      setHistorico(data.pedidosUser);
+      console.log(historico);
     } catch (e) {
       console.log(e);
       toast.error("Algo deu errado", {
@@ -70,58 +92,114 @@ const Usuario = () => {
   const handleEditarDados = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:3001/api/v1/auth/editarDados/${auth.usuario._id}`, {
-        nome,
-        email,
-        cpf,
-        dataNascimento,
-        telefone,
-        cep,
-        endereco,
-        numEnd,
-        bairro,
-        complementoEnd,
-        cidade,
-        estado,
-        imagem
-      });
+      const res = await axios.put(
+        `http://localhost:3001/api/v1/auth/editarDados/${auth.usuario._id}`,
+        {
+          nome,
+          email,
+          cpf,
+          dataNascimento,
+          telefone,
+          cep,
+          endereco,
+          numEnd,
+          bairro,
+          complementoEnd,
+          cidade,
+          estado,
+          imagem,
+        }
+      );
 
       if (res && res.data.success) {
         toast.success(res.data.message, {
           className: "toast-message",
           position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
+          autoClose: 1500,
+          theme: "dark",
         });
-        
       } else {
         toast.error(res.data.message, {
           className: "toast-message",
           position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
+          autoClose: 1500,
+          theme: "dark",
         });
       }
     } catch (err) {
       toast.error("Algo deu errado", {
         className: "toast-message",
         position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
+        autoClose: 1500,
+        theme: "dark",
       });
     }
   };
 
   useEffect(() => {
     getUsuario();
+    getHistorico();
     //eslint-disable-next-line
   }, []);
 
+  function dataBr(data) {
+    let newData = Date.parse(data);
+    return format(newData, "dd/MM/yyyy");
+  }
+
+  function statusPgto(status) {
+    try {
+      switch (status) {
+        case 0:
+          return "Não processado!";
+        case 1:
+          return "Erro no pagamento!";
+        case 2:
+          return "Cancelado!";
+      }
+    } catch (e) {
+      console.log(e);
+      toast.error("Algo deu errado", {
+        className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
+      });
+    }
+  }
+
+  function tipoPgto(tipo) {
+    try {
+      switch (tipo) {
+        case 0:
+          return "Não definido!";
+        case 1:
+          return "PIX";
+        case 2:
+          return "Cartão de crédito";
+      }
+    } catch (e) {
+      console.log(e);
+      toast.error("Algo deu errado", {
+        className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
+      });
+    }
+  }
+
   return (
     <Layout>
-      <div style={{display: "flex", justifyContent: "space-around"}}>
-        <div style={{ display: "flex", flexFlow: "column"}}>
-          <div style={{ display: "flex", flexFlow: "column", marginBottom: "5rem"}}>
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <div style={{ display: "flex", flexFlow: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              flexFlow: "column",
+              marginBottom: "5rem",
+            }}
+          >
             <img
               width={150}
               height={150}
@@ -135,8 +213,15 @@ const Usuario = () => {
               onChange={(e) => imgToBase64(e.target.files[0])}
             />
           </div>
-          <div className="forms"style={{backgroundColor: "#f5f5f5", borderRadius: "2rem", marginTop: "0"}}>
-            <form >
+          <div
+            className="forms"
+            style={{
+              backgroundColor: "#f5f5f5",
+              borderRadius: "2rem",
+              marginTop: "0",
+            }}
+          >
+            <form>
               <div className="edit-group">
                 <label htmlFor="senhaAntiga">Senha Antiga</label>
                 <input
@@ -159,22 +244,35 @@ const Usuario = () => {
                   required
                 />
               </div>
-              <button type="submit">Alterar</button>
+              <div className="edit-group">
+                <label></label>
+                <button type="submit">Alterar</button>
+              </div>
             </form>
           </div>
-          <div className="forms"style={{backgroundColor: "#f5f5f5", borderRadius: "2rem", marginTop: "3rem"}}>
-          <label>Deletar Usuario</label>
-          <button
-                  style={{ margin: "1rem 0" }}
-                  onClick={() => {
-                  }}
-                >
-                  Editar Endereço
-                </button>
+          <div
+            className="forms"
+            style={{
+              backgroundColor: "#f5f5f5",
+              borderRadius: "2rem",
+              marginTop: "3rem",
+            }}
+          >
+            <label>Deletar Usuario</label>
+            <button style={{ margin: "1rem 0" }} onClick={() => {}}>
+              Editar Endereço
+            </button>
           </div>
         </div>
         <div>
-          <div className="forms" style={{marginTop: "0", backgroundColor: "#f5f5f5", borderRadius: "2rem"}}>
+          <div
+            className="forms"
+            style={{
+              marginTop: "0",
+              backgroundColor: "#f5f5f5",
+              borderRadius: "2rem",
+            }}
+          >
             <form onSubmit={handleEditarDados}>
               <div className="edit-group">
                 <label htmlFor="Nome">Nome</label>
@@ -339,7 +437,7 @@ const Usuario = () => {
                   <option value="DF">Distrito Federal</option>
                 </select>
               </div>
-              <div>
+              <div className="edit-group">
                 <label></label>
                 <button type="submit">Editar</button>
               </div>
@@ -349,7 +447,41 @@ const Usuario = () => {
         {auth?.usuario.perfil ? (
           <div style={{ display: "none" }}></div>
         ) : (
-          <div>Historico</div>
+          <div style={{ margin: "0 1rem", fontSize: "1.5rem", width: "40%" }}>
+            {historico?.map((p) => (
+              <div className="carrinho">
+                <table className="tabela">
+                  <tbody>
+                    <tr key={p._id} style={{}}>
+                      <td>
+                        <b>ID do pedido</b>
+                        <p>{p._id}</p>
+                      </td>
+                      <td>
+                        <b>Data do pedido</b>
+                        <p>{dataBr(p.createdAt)}</p>
+                      </td>
+                      <td>
+                        <b>Total do pedido</b>
+                        <p>
+                          {p.total.toLocaleString("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                          })}
+                        </p>
+                      </td>
+                      <td>
+                        <b>Status do pagamento</b> <p>{statusPgto(p.status)}</p>
+                      </td>
+                      <td>
+                        <b>Tipo de pagamento</b> <p>{tipoPgto(p.tipoPgto)}</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </Layout>

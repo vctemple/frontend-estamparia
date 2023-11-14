@@ -45,6 +45,10 @@ const Carrinho = () => {
     Navigate("/cadastro");
   };
 
+  const navegarUser = () => {
+    Navigate("/auth-login/usuario")
+  }
+
   const mostraTamanho = (tamanho) => {
     try {
       switch (tamanho) {
@@ -121,6 +125,64 @@ const Carrinho = () => {
       });
     }
   };
+
+  function filterCarrinho (){
+    
+    let newArr = [];
+    for (let i = 0; i < cartItens.length; i++){
+      console.log(cartItens[i])
+      const item = {produto: cartItens[i]._id, qtd: cartItens[i].qtd};
+      newArr.push(item);
+    }
+    return newArr;
+  }
+
+  const handlePedido = async (e) => {
+    e.preventDefault(); 
+    const totalInt = parseInt(totalCart.slice(3))
+    console.log(totalInt)
+    try {
+      const res = await axios.post(
+        `http://localhost:3001/api/v1/pedidos/`,
+        {
+          status: 0,
+          tipoPgto: 0,
+          usuario: user._id,
+          carrinho: filterCarrinho(),
+          total: totalInt
+        }
+      ); //status e pedidos hardcode para demonstração
+
+      if (res && res.data.success) {
+        toast.success(res.data.message, {
+          className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark"
+        });
+        sessionStorage.removeItem("carrinho");
+        
+        setTimeout(() => {
+          navegarUser()
+        }, 2000);
+      } else {
+        toast.error(res.data.message, {
+          className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark"
+        });
+      }
+    } catch (e) {
+      console.log(e)
+      toast.error("Algo deu errado", {
+        className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark"
+      });
+    }
+  }
 
   function removeDaLista(arr, index) {
     console.log(index);
@@ -248,9 +310,7 @@ const Carrinho = () => {
               </div>
               <button
                 style={{ margin: "1rem 0" }}
-                onClick={() => {
-                  navegarLogin();
-                }}
+                onClick={handlePedido}
               >
                 Finalizar Compra
               </button>
