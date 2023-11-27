@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/layout.js";
-import { UseAuth } from "../context/auth.js";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate, NavLink } from "react-router-dom";
 import "../styles/grid.css";
 import "../styles/card.css";
+import banner from "../imgs/banner teste.jpg"
 
 const Home = () => {
   const [carrinho, setCarrinho] = useState([])
@@ -19,7 +19,7 @@ const Home = () => {
 
   const listarProdutos = async () => {
     try {
-      const dados = await axios.get("http://localhost:3001/api/v1/produtos/");
+      const dados = await axios.get("http://localhost:3001/api/v1/produtos/ativo");
       setProdutos(dados.data.produtos);
     } catch (e) {
       console.log(e);
@@ -112,7 +112,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <div>Banner</div>
+      <div style={{display: "flex", justifyContent: "center"}}><img className="imagem" src={banner}></img></div>
       <div className="grid">
         <div className="filter">
           <div className="card2">

@@ -8,10 +8,13 @@ import { UseAuth } from "../../context/auth.js";
 import { toast } from "react-toastify";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import "../../styles/dropDownMenu.css";
+import axios from "axios";
+import exportFromJSON from 'export-from-json'
 
 const Header = () => {
   const [auth, setAuth] = UseAuth();
   const [carrinho, setCarrinho] = useState([]);
+  const [pedidos, setPedidos] = useState([]);
   const handleLogout = () => {
     try {
       setAuth({
@@ -36,9 +39,49 @@ const Header = () => {
     }
   };
 
+  const getPedidos = async () => {
+    try {
+      const { data } = await axios.get(
+        //A variável tem que se chamar necessariamente data aqui
+        `http://localhost:3001/api/v1/pedidos/`
+      );
+      setPedidos(data.pedidos);
+    } catch (e) {
+      console.log(e);
+      toast.error("Algo deu errado", {
+        className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
+      });
+    }
+  };
+
+  const handleRelVendas = async () => {
+    try {
+      const data = pedidos;
+      console.log(data)
+      const fileName = "Pedidos2"
+      const exportType = exportFromJSON.types.xls;
+      exportFromJSON({ data, fileName, exportType })
+ 
+    } catch (e) {
+      console.log(e);
+      toast.error("Algo deu errado", {
+        className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
+      });
+    }
+  }
+
+
+
   useEffect(() => {
-    const data = window.sessionStorage.getItem("carrinho")
-    if(data !== null) setCarrinho(JSON.parse(sessionStorage.getItem("carrinho")))
+    const data = window.sessionStorage.getItem("carrinho");
+    if(data !== null) setCarrinho(JSON.parse(sessionStorage.getItem("carrinho")));
+    getPedidos();
   }, [])
 
   useEffect(() => {
@@ -128,7 +171,7 @@ const Header = () => {
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
 
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    Relatório de Vendas
+                  <NavLink onClick={handleRelVendas}>Relatório de Vendas</NavLink>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
                     Relatório de Custos
@@ -192,7 +235,7 @@ const Header = () => {
                   </DropdownMenu.Sub>
 
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    Relatório de Vendas
+                  <NavLink onClick={handleRelVendas}>Relatório de Vendas</NavLink>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
                     <NavLink to="/auth-login/auth-gerente/banner">

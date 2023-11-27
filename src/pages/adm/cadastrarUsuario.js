@@ -200,7 +200,6 @@ const CadastroUsuario = () => {
               id="complemento"
               value={complementoEnd}
               onChange={(e) => setComplementoEnd(e.target.value)}
-              required
             />
           </div>
           <div className="form-group">

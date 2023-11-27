@@ -302,7 +302,7 @@ const Carrinho = () => {
                 <button
                   style={{ margin: "1rem 0" }}
                   onClick={() => {
-                    navegarLogin();
+                    navegarUser();
                   }}
                 >
                   Editar Endereço

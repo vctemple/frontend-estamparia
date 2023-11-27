@@ -29,7 +29,7 @@ const Dashboard = () => {
   function dataBr(data) {
     let newData = Date.parse(data);
     return format(newData, "dd/MM/yyyy");
-  };
+  }
 
   function statusPgto(status) {
     try {
@@ -77,49 +77,71 @@ const Dashboard = () => {
     getPedidos();
     //eslint-disable-next-line
   }, []);
-  
+
   return (
     <Layout>
-        <h1>dashboard</h1>
+      <h1>dashboard</h1>
+      <div style={{display: "flex", justifyContent: "space-evenly", marginTop: "3rem"}}>
         <div style={{ margin: "0 1rem", fontSize: "1.5rem", width: "40%" }}>
-            {pedidos?.map((p) => (
-              <div className="carrinho">
-                <table className="tabela">
-                  <tbody>
-                    <tr key={p._id} style={{}}>
-                      <td>
-                        <b>Email do usuário</b>
-                        <p>{p.usuario.email}</p>
-                      </td>
-                      <td>
-                        <b>Data do pedido</b>
-                        <p>{dataBr(p.createdAt)}</p>
-                      </td>
-                      <td>
-                        <b>Total do pedido</b>
-                        <p>
-                          {p.total.toLocaleString("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
-                          })}
-                        </p>
-                      </td>
-                      <td>
-                        <b>Status do pagamento</b> <p>{statusPgto(p.status)}</p>
-                      </td>
-                      <td>
-                        <b>Tipo de pagamento</b> <p>{tipoPgto(p.tipoPgto)}</p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            ))}
-          </div>
-        <div></div>
+          {pedidos?.map((p) => (
+            <div className="carrinho">
+              <table className="tabela">
+                <tbody>
+                  <tr key={p._id} style={{}}>
+                    <td>
+                      <b>Email do usuário</b>
+                      <p>{p.usuario.email}</p>
+                    </td>
+                    <td>
+                      <b>Data do pedido</b>
+                      <p>{dataBr(p.createdAt)}</p>
+                    </td>
+                    <td>
+                      <b>Total do pedido</b>
+                      <p>
+                        {p.total.toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </p>
+                    </td>
+                    <td>
+                      <b>Status do pagamento</b> <p>{statusPgto(p.status)}</p>
+                    </td>
+                    <td>
+                      <b>Tipo de pagamento</b> <p>{tipoPgto(p.tipoPgto)}</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          ))}
+        </div>
+        <div style={{ margin: "0 1rem", display: "flex", flexFlow: "column"}}>
+          <iframe
+            style={{
+              background: "#21313C",
+              border: "none",
+              borderRadius: "2rem",
+              boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
+              marginBottom: "2rem"
+            }}
+            width={640}
+            height={400}
+            src="https://charts.mongodb.com/charts-estamparia-zbiei/embed/charts?id=655d2647-df21-40cb-8153-fa26aaabd2df&maxDataAge=300&theme=dark&autoRefresh=true"
+          ></iframe>
+          <iframe style={{
+              background: "#f5f5f5",
+              border: "none",
+              borderRadius: "2rem",
+              boxShadow: "0 2px 10px 0 rgba(70, 76, 79, .2)",
+            }}
+            width={640}
+            height={400} src="https://charts.mongodb.com/charts-estamparia-zbiei/embed/charts?id=655d2cc5-96b0-4ad2-8f83-8acd2b63ce99&maxDataAge=300&theme=light&autoRefresh=true"></iframe>
+        </div>
+      </div>
     </Layout>
-    
   );
 };
 
-export default Dashboard
+export default Dashboard;

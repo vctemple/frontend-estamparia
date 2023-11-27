@@ -6,6 +6,7 @@ import axios from "axios";
 import "../../styles/auth.css";
 import "../../styles/carrinho.css";
 import format from "date-fns/format";
+import { useNavigate } from "react-router-dom";
 
 const Usuario = () => {
   const [auth, setAuth] = UseAuth();
@@ -22,10 +23,10 @@ const Usuario = () => {
   const [cidade, setCidade] = useState("");
   const [estado, setEstado] = useState("");
   const [imagem, setImagem] = useState("");
-  const [ativo, setAtivo] = useState("");
   const [senhaAntiga, setSenhaAntiga] = useState("");
   const [senhaNova, setSenhaNova] = useState("");
   const [historico, setHistorico] = useState([]);
+  const Navigate = useNavigate();
 
   const getUsuario = async () => {
     try {
@@ -51,7 +52,6 @@ const Usuario = () => {
       setComplementoEnd(data.usuario.complementoEnd);
       setCidade(data.usuario.cidade);
       setEstado(data.usuario.estado);
-      setAtivo(data.usuario.ativo);
       setImagem(data.usuario.imagem);
     } catch (e) {
       console.log(e);
@@ -136,6 +136,66 @@ const Usuario = () => {
     }
   };
 
+  const handleDelete = async () => {
+    await axios
+      .put("http://localhost:3001/api/v1/auth/delete/" + auth.usuario._id)
+      .then(setAuth({
+        ...auth,
+        usuario: null,
+        token: "",
+      }))
+      .then(sessionStorage.removeItem("auth"))
+      .then(sessionStorage.removeItem("carrinho"))
+      .then(Navigate("/"))
+      .catch((err) => {
+        toast.error(err.message, {
+          className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark"
+        });
+      });
+  };
+
+  const handleSenha = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.put(
+        `http://localhost:3001/api/v1/auth/editarSenha/${auth.usuario._id}`,
+        {
+          senhaAntiga,
+          senhaNova
+        }
+      );
+
+      if (res && res.data.success) {
+        toast.success(res.data.message, {
+          className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark",
+        });
+        setSenhaAntiga("");
+        setSenhaNova("");
+      } else {
+        toast.error(res.data.message, {
+          className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark",
+        });
+      }
+    } catch (err) {
+      toast.error("Algo deu errado", {
+        className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
+      });
+    }
+  };
+
+
   useEffect(() => {
     getUsuario();
     getHistorico();
@@ -204,7 +264,7 @@ const Usuario = () => {
               width={150}
               height={150}
               src={imagem}
-              style={{ marginLeft: "2rem" }}
+              style={{ marginLeft: "1rem" }}
             />
             <input
               className="image"
@@ -221,7 +281,8 @@ const Usuario = () => {
               marginTop: "0",
             }}
           >
-            <form>
+            <form onSubmit={handleSenha}>
+              <h4 style={{ display: "flex", justifyContent: "center" }}>Alterar Senha</h4>
               <div className="edit-group">
                 <label htmlFor="senhaAntiga">Senha Antiga</label>
                 <input
@@ -258,9 +319,8 @@ const Usuario = () => {
               marginTop: "3rem",
             }}
           >
-            <label>Deletar Usuario</label>
-            <button style={{ margin: "1rem 0" }} onClick={() => {}}>
-              Editar Endereço
+            <button style={{ margin: "1rem 1rem" }} onClick={() => {handleDelete()}}>
+              Excluir Perfil
             </button>
           </div>
         </div>

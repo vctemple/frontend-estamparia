@@ -30,6 +30,11 @@
     margin: 0 1rem 0 0;
 }
 
+.imagem{
+    border-radius: 3rem;
+    height: 20rem;
+}
+
 @media (max-width: 1680px){
     .grid2{
         grid-template-columns: 1fr 1fr 1fr;
@@ -52,5 +57,23 @@
     }
     .grid{
         margin: 1rem;
+    }
+}
+
+@media (max-width: 750px){
+    .imagem{
+        height: 18rem;
+    }
+}
+
+@media (max-width: 650px){
+    .imagem{
+        height: 15rem;
+    }
+}
+
+@media (max-width: 550px){
+    .imagem{
+        height: 13rem;
     }
 }

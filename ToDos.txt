@@ -4,8 +4,16 @@
 - Centralizar pacman;
 - Redirecionar para login quando expira sessão;
 - Adicionar popup para confirmar exclusões;
-- Alterar display de data de nascimento;
-- Adicionar espaço para imagem no detalhamento do usuário;
+- Melhorar espaço para imagem no detalhamento do usuário;
 - Implementar função de pesquisa;
 - Implementar função de ordenação;
 - agrupar mesmos itens no carrinho;
+- Finalizar responsividade;
+- implementar inteligência no dashboard;
+- melhorar visualização do dashboard;
+- Finalizar os relatórios;
+- Implementar o front CRUD do banner e aperfeiçoar display;
+- Implementar o front de recuperação de senha;
+- Implementar o front para realização do pagamento;
+- implementar o front para gestão de pedidos;
+- implementar o front para emissão de NF;
