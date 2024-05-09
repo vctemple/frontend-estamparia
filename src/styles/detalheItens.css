@@ -1,0 +1,76 @@
+.filtro{
+    padding: 1rem;
+    border-radius: 30px;
+    background-color: #f5f5f5;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    max-width: 80vw;
+    margin: 0 auto;
+}
+.contentFiltro{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    border-top-style: groove;
+    border-top-color: #d8d8d8;
+}
+.gridOp{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: start;
+    margin: 10px 0 0 0;
+}
+
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    background-color:#f5f5f5;
+    margin: 2% 2%;
+    padding: 0.3rem;
+    align-items: center;
+}
+.card:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.button1{
+    border: none;
+    background-color:#696969;
+    color: var(--light-f);
+    transition: all 100ms ease-in-out;
+    max-width: 90%;
+}
+.button1:focus{
+    background-color: rgb(64, 87, 117);
+    
+}
+
+ .carousel.carousel-slider .control-arrow{
+    background-color: #696969;
+    width: 5rem;
+    height: 5rem;
+}
+.carousel.carousel-slider .control-arrow:hover{
+    background-color: black;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.container .sobreposicao{
+    width: 400px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sobreposicao img{
+    position: absolute;
+}
+.sobreposicao .estampa{
+    top: 90px
+}
+

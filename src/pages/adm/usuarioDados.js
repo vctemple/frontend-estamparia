@@ -3,8 +3,8 @@ import Layout from "../../components/layout/layout.js";
 import "../../styles/listas.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useParams, NavLink } from "react-router-dom";
-import { RiArrowLeftCircleFill } from "react-icons/ri";
+import { useParams } from "react-router-dom";
+import format from "date-fns/format";
 
 const UsuarioDados = () => {
   const params = useParams();
@@ -32,7 +32,7 @@ const UsuarioDados = () => {
         setNome(data.usuario.nome);
         setEmail(data.usuario.email);
         setCpf(data.usuario.cpf);
-        setDataNascimento(data.usuario.dataNascimento);
+        setDataNascimento(dataBr(data.usuario.dataNascimento));
         setTelefone(data.usuario.telefone);
         setCEP(data.usuario.cep);
         setEndereco(data.usuario.endereco);
@@ -52,6 +52,11 @@ const UsuarioDados = () => {
                       theme: "dark"
       });
     }
+  }
+
+  function dataBr(data) {
+    let newData = Date.parse(data);
+    return format(newData, "dd/MM/yyyy");
   }
 
   const mostraPerfil = (perfil) => {
@@ -141,13 +146,13 @@ const UsuarioDados = () => {
           </tbody>
         </table>
       </div>
-      <div style={{display: "flex", alignItems: "center", flexFlow: "column" }}>
+      {/* <div style={{display: "flex", alignItems: "center", flexFlow: "column" }}>
         <NavLink style={{display: "flex", alignItems: "center"}} to={"/auth-login/auth-gerente/auth-adm/usuariosSistema"}>
           <RiArrowLeftCircleFill size="25px" className="icon"/>
           <h4 style={{padding: "0.3rem", marginTop: "1.5rem" }}>Voltar</h4> 
         </NavLink>
         
-      </div>
+      </div> */}
       
     </Layout>
   );

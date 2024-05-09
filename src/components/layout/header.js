@@ -9,12 +9,11 @@ import { toast } from "react-toastify";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import "../../styles/dropDownMenu.css";
 import axios from "axios";
-import exportFromJSON from 'export-from-json'
+import exportFromJSON from "export-from-json";
 
 const Header = () => {
   const [auth, setAuth] = UseAuth();
   const [carrinho, setCarrinho] = useState([]);
-  const [pedidos, setPedidos] = useState([]);
   const handleLogout = () => {
     try {
       setAuth({
@@ -26,78 +25,46 @@ const Header = () => {
       toast.success("Logout com sucesso!", {
         className: "toast-message",
         position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
+        autoClose: 1500,
+        theme: "dark",
       });
     } catch (e) {
       toast.error("Algo deu errado!", {
         className: "toast-message",
         position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
-      });
-    }
-  };
-
-  const getPedidos = async () => {
-    try {
-      const { data } = await axios.get(
-        //A variável tem que se chamar necessariamente data aqui
-        `http://localhost:3001/api/v1/pedidos/`
-      );
-      setPedidos(data.pedidos);
-    } catch (e) {
-      console.log(e);
-      toast.error("Algo deu errado", {
-        className: "toast-message",
-        position: "top-center",
         autoClose: 1500,
         theme: "dark",
       });
     }
   };
 
-  const handleRelVendas = async () => {
-    try {
-      const data = pedidos;
-      console.log(data)
-      const fileName = "Pedidos2"
-      const exportType = exportFromJSON.types.xls;
-      exportFromJSON({ data, fileName, exportType })
- 
-    } catch (e) {
-      console.log(e);
-      toast.error("Algo deu errado", {
-        className: "toast-message",
-        position: "top-center",
-        autoClose: 1500,
-        theme: "dark",
-      });
-    }
-  }
-
-
-
-  useEffect(() => {
+   useEffect(() => {
     const data = window.sessionStorage.getItem("carrinho");
-    if(data !== null) setCarrinho(JSON.parse(sessionStorage.getItem("carrinho")));
-    getPedidos();
-  }, [])
+    if (data !== null)
+      setCarrinho(JSON.parse(sessionStorage.getItem("carrinho")));
+  }, []);
 
   useEffect(() => {
-    setCarrinho(JSON.parse(sessionStorage.getItem("carrinho")))
-  }, [sessionStorage.getItem("carrinho")])
-  
+    setCarrinho(JSON.parse(sessionStorage.getItem("carrinho")));
+  }, [sessionStorage.getItem("carrinho")]);
+
   function PerfilSelecao() {
     if (auth?.usuario) {
       switch (auth.usuario.perfil) {
         case 0:
           return [
             <IconePersonalizado to="/carrinho">
-              Carrinho&#160; {carrinho?.length ? <RiShoppingCart2Fill /> : <RiShoppingCart2Line />} {carrinho?.length}
-
+              Carrinho&#160;{" "}
+              {carrinho?.length ? (
+                <RiShoppingCart2Fill />
+              ) : (
+                <RiShoppingCart2Line />
+              )}{" "}
+              {carrinho?.length}
             </IconePersonalizado>,
-            <IconePersonalizado to="/auth-login/usuario">Usuário</IconePersonalizado>,
+            <IconePersonalizado to="/auth-login/usuario">
+              Usuário
+            </IconePersonalizado>,
             <li>
               <NavLink onClick={handleLogout} to="/">
                 Logout
@@ -115,24 +82,50 @@ const Header = () => {
 
               <DropdownMenu.Portal>
                 <DropdownMenu.Content className="DropdownMenuContent">
-                  <DropdownMenu.Item className="DropdownMenuItem">
-                    <NavLink to="/auth-login/auth-gerente/dashboard">
-                      Dashboard
+                  
+                <DropdownMenu.Item className="DropdownMenuItem">
+                    <NavLink to="/auth-login/auth-gerente/auth-adm/pedidos">
+                      Pedidos
                     </NavLink>
                   </DropdownMenu.Item>
 
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
-
+                  
                   <DropdownMenu.Sub>
                     <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
                       <NavLink to="/auth-login/auth-gerente/produtos">
-                        Produtos
+                        Estoque
                       </NavLink>
                     </DropdownMenu.SubTrigger>
                     <DropdownMenu.SubContent className="DropdownMenuSubContent">
                       <DropdownMenu.Item className="DropdownMenuItem">
-                        <NavLink to="/auth-login/auth-gerente/cadastroProduto">
+                        <NavLink to="/auth-login/auth-gerente/cadastroEstampa">
+                          Cadastrar Estampa
+                        </NavLink>
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/estampas">
+                          Listar Estampas
+                        </NavLink>
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/listaEstampaProd">
                           Cadastrar Produto
+                        </NavLink>
+                      </DropdownMenu.Item>
+                    </DropdownMenu.SubContent>
+                  </DropdownMenu.Sub>
+
+                  <DropdownMenu.Sub>
+                    <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
+                      <NavLink to="/auth-login/auth-gerente/anuncios">
+                        Anúncios
+                      </NavLink>
+                    </DropdownMenu.SubTrigger>
+                    <DropdownMenu.SubContent className="DropdownMenuSubContent">
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/cadastroAnuncio">
+                          Cadastrar Anúncio
                         </NavLink>
                       </DropdownMenu.Item>
                     </DropdownMenu.SubContent>
@@ -168,16 +161,23 @@ const Header = () => {
                     </DropdownMenu.SubContent>
                   </DropdownMenu.Sub>
 
+                  <DropdownMenu.Item className="DropdownMenuItem">
+                    <NavLink to="/auth-login/auth-gerente/auth-adm/clientesSistema">
+                      Clientes do sistema
+                    </NavLink>
+                  </DropdownMenu.Item>
+
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
 
                   <DropdownMenu.Item className="DropdownMenuItem">
-                  <NavLink onClick={handleRelVendas}>Relatório de Vendas</NavLink>
+                    <NavLink to="/auth-login/auth-gerente/auth-adm/balancoFinanceiro">
+                      Balanço financeiro
+                    </NavLink>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
-                    Relatório de Custos
-                  </DropdownMenu.Item>
-                  <DropdownMenu.Item className="DropdownMenuItem">
-                    Relatório de Lucro
+                    <NavLink to="/auth-login/auth-gerente/balancoVendas">
+                      Balanço de Vendas
+                    </NavLink>
                   </DropdownMenu.Item>
 
                   <DropdownMenu.Separator className="DropdownMenuSeparator" />
@@ -187,6 +187,20 @@ const Header = () => {
                       Banner
                     </NavLink>
                   </DropdownMenu.Item>
+                  <DropdownMenu.Sub>
+                    <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
+                      <NavLink to="/auth-login/auth-gerente/auth-adm/camisetas_lisas">
+                        Camisetas lisas
+                      </NavLink>
+                    </DropdownMenu.SubTrigger>
+                    <DropdownMenu.SubContent className="DropdownMenuSubContent">
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/auth-adm/cadastroCamiseta">
+                          Cadastrar Camiseta
+                        </NavLink>
+                      </DropdownMenu.Item>
+                    </DropdownMenu.SubContent>
+                  </DropdownMenu.Sub>
                 </DropdownMenu.Content>
               </DropdownMenu.Portal>
             </DropdownMenu.Root>,
@@ -213,29 +227,50 @@ const Header = () => {
                   className="DropdownMenuContent"
                   sideOffset={5}
                 >
-                  <DropdownMenu.Item className="DropdownMenuItem">
-                    <NavLink to="/auth-login/auth-gerente/dashboard">
-                      Dashboard
-                    </NavLink>
-                  </DropdownMenu.Item>
-
                   <DropdownMenu.Sub>
                     <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
                       <NavLink to="/auth-login/auth-gerente/produtos">
-                        Produtos
+                        Estoque
                       </NavLink>
                     </DropdownMenu.SubTrigger>
                     <DropdownMenu.SubContent className="DropdownMenuSubContent">
                       <DropdownMenu.Item className="DropdownMenuItem">
-                        <NavLink to="/auth-login/auth-gerente/cadastroProduto">
+                        <NavLink to="/auth-login/auth-gerente/cadastroEstampa">
+                          Cadastrar Estampa
+                        </NavLink>
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/estampas">
+                          Listar Estampas
+                        </NavLink>
+                      </DropdownMenu.Item>
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/listaEstampaProd">
                           Cadastrar Produto
                         </NavLink>
                       </DropdownMenu.Item>
                     </DropdownMenu.SubContent>
                   </DropdownMenu.Sub>
 
+                  <DropdownMenu.Sub>
+                    <DropdownMenu.SubTrigger className="DropdownMenuSubTrigger">
+                      <NavLink to="/auth-login/auth-gerente/anuncios">
+                        Anúncios
+                      </NavLink>
+                    </DropdownMenu.SubTrigger>
+                    <DropdownMenu.SubContent className="DropdownMenuSubContent">
+                      <DropdownMenu.Item className="DropdownMenuItem">
+                        <NavLink to="/auth-login/auth-gerente/cadastroAnuncio">
+                          Cadastrar Anúncio
+                        </NavLink>
+                      </DropdownMenu.Item>
+                    </DropdownMenu.SubContent>
+                  </DropdownMenu.Sub>
+
                   <DropdownMenu.Item className="DropdownMenuItem">
-                  <NavLink onClick={handleRelVendas}>Relatório de Vendas</NavLink>
+                    <NavLink to="/auth-login/auth-gerente/balancoVendas">
+                      Balanço de Vendas
+                    </NavLink>
                   </DropdownMenu.Item>
                   <DropdownMenu.Item className="DropdownMenuItem">
                     <NavLink to="/auth-login/auth-gerente/banner">
@@ -260,7 +295,9 @@ const Header = () => {
         <IconePersonalizado to="/login">Login</IconePersonalizado>,
         <IconePersonalizado to="/cadastro">Cadastro</IconePersonalizado>,
         <IconePersonalizado to="/carrinho">
-          Carrinho&#160; {carrinho?.length ? <RiShoppingCart2Fill /> : <RiShoppingCart2Line />} {carrinho?.length}
+          Carrinho&#160;{" "}
+          {carrinho?.length ? <RiShoppingCart2Fill /> : <RiShoppingCart2Line />}{" "}
+          {carrinho?.length}
         </IconePersonalizado>,
       ];
     }
@@ -320,7 +357,5 @@ const Header = () => {
     </div>
   );
 };
-
-
 
 export default Header;

@@ -71,6 +71,33 @@ input #file-upload-button{
 
   .edit-group input, .edit-group select, .edit-group button{
     width: 22rem;
-    height: 3rem;
+    min-height: 3rem;
     margin: 1rem;
 }
+
+  .content-radio{
+    display: flex;
+    transition: all 100ms ease-in-out;
+
+}
+
+.content-radio label:hover{
+  font-size: 1.4rem;
+  font-weight: 800;
+  }
+
+.content-radio input{
+margin-right: 0.5rem;
+}
+
+.content-radio input:hover{
+  box-shadow: 0 0 0 0;
+  }
+
+  .content-radio input:focus, .content-radio select:focus{
+    box-shadow: 0 0 0 0;
+  }
+
+  .formComLabel1 label{
+    min-width: 15rem;
+  }

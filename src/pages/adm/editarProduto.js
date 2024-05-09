@@ -8,79 +8,81 @@ import "../../styles/auth.css";
 const EditarProduto = () => {
   const Navigate = useNavigate();
   const params = useParams();
-  
+
   const [id, setId] = useState("");
-  const [nome, setNome] = useState("");
-  const [tecido, setTecido] = useState("");
-  const [estampa, setEstampa] = useState("");
+  const [nome_estampa, setNome] = useState("");
+  const [dimensoes, setDimensoes] = useState([]);
+  const [imgEstampa, setImgEstampa] = useState("");
+
+  const [sku, setSku] = useState("");
+  const [dimensao_estampa, setDimensao_estampa] = useState("");
+  const [tipo_estampa, setTipo_estampa] = useState("");
+  const [tecido_camiseta, setTecido_camiseta] = useState("");
+  const [cor_camiseta, setCor_camiseta] = useState("");
+  const [tamanho_camiseta, setTamanho_camiseta] = useState("");
+  const [marca_camiseta, setMarca_camiseta] = useState("");
   const [quantidade, setQuantidade] = useState("");
-  const [tamanho, setTamanho] = useState("");
-  const [cor, setCor] = useState("");
-  const [preco, setPreco] = useState("");
-  const [custo, setCusto] = useState("");
+  const [custo_lote, setCusto_lote] = useState("");
   const [fornecedor, setFornecedor] = useState("");
-  const [marca, setMarca] = useState("");
   const [imgFrente, setImgFrente] = useState("");
-  const [imgTras, setImgTras] = useState("");
-  const [imgCorpo, setImgCorpo] = useState("");
 
   const [fornecedores, setFornecedores] = useState([]);
 
-  const getProduto = async () => {
+  const getSKU = async () => {
     try {
-        const { data } = await axios.get( //A variável tem que se chamar necessariamente data aqui
-            `http://localhost:3001/api/v1/produtos/dados/${params.pid}`
-        );
-        setId(data.produto._id)
-        setNome(data.produto.nome);
-        setTecido(data.produto.tecido);
-        setEstampa(data.produto.estampa);
-        setQuantidade(data.produto.quantidade);
-        setTamanho(data.produto.tamanho);
-        setCor(data.produto.cor);
-        setPreco(data.produto.preco);
-        setCusto(data.produto.custo);
-        setFornecedor(data.produto.fornecedor._id);
-        setMarca(data.produto.marca);
-        setImgFrente(data.produto.imgFrente);
-        setImgTras(data.produto.imgTras);
-        setImgCorpo(data.produto.imgCorpo);
+      const { data } = await axios.get(
+        //A variável tem que se chamar necessariamente data aqui
+        `http://localhost:3001/api/v1/produtos/dados/sku/${params.pid}`
+      );
+      setId(data.produto._id);
+      setNome(data.produto.nome_estampa);
+      setDimensoes(data.produto.dimensoes);
+      setImgEstampa(data.produto.imgEstampa);
+      setDimensao_estampa(data.produto.SKUs.dimensao_estampa);
+      setTipo_estampa(data.produto.SKUs.tipo_estampa);
+      setTecido_camiseta(data.produto.SKUs.tecido_camiseta);
+      setCor_camiseta(data.produto.SKUs.cor_camiseta);
+      setSku(data.produto.SKUs.sku);
+      setTamanho_camiseta(data.produto.SKUs.tamanho_camiseta);
+      setMarca_camiseta(data.produto.SKUs.marca_camiseta);
+      setCusto_lote(data.produto.SKUs.custo_lote);
+      setFornecedor(data.produto.SKUs.fornecedor);
+      setQuantidade(data.produto.SKUs.quantidade)
+      setImgFrente(data.produto.SKUs.imgFrente);
     } catch (e) {
-        console.log(e);
+      console.log(e);
       toast.error("Algo deu errado", {
         className: "toast-message",
         position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
+        autoClose: 1500,
+        theme: "dark",
       });
     }
-  }
-  
-  const handleUpdate = async (e) => {
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:3001/api/v1/produtos/${id}`, {
-        nome,
-        tecido,
-        estampa,
+      const res = await axios.put(`http://localhost:3001/api/v1/produtos/editarSKU/${params.pid}`, {
+        sku,
+        dimensao_estampa,
+        tipo_estampa,
+        tecido_camiseta,
+        cor_camiseta,
+        tamanho_camiseta,
+        marca_camiseta,
         quantidade,
-        tamanho,
-        cor,
-        preco,
-        custo,
+        custo_lote,
         fornecedor,
-        marca,
         imgFrente,
-        imgTras,
-        imgCorpo
       });
 
       if (res && res.data.success) {
         toast.success(res.data.message, {
           className: "toast-message",
           position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
+          autoClose: 1500,
+          theme: "dark",
         });
         setTimeout(() => {
           Navigate("/auth-login/auth-gerente/produtos");
@@ -89,16 +91,16 @@ const EditarProduto = () => {
         toast.error(res.data.message, {
           className: "toast-message",
           position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
+          autoClose: 1500,
+          theme: "dark",
         });
       }
     } catch (err) {
       toast.error("Algo deu errado", {
         className: "toast-message",
         position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
+        autoClose: 1500,
+        theme: "dark",
       });
     }
   };
@@ -122,85 +124,136 @@ const EditarProduto = () => {
     reader.readAsDataURL(img);
     reader.onload = () => {
       if (text === "frente") setImgFrente(reader.result);
-      if (text === "tras") setImgTras(reader.result);
-      if (text === "corpo") setImgCorpo(reader.result);
     };
   }
 
   useEffect(() => {
     listarFornecedores();
-    getProduto();
+    getSKU();
     //eslint-disable-next-line
   }, []);
 
   return (
     <Layout>
-      <h1 className="cad">Editar produto</h1>
-
+      <h1 className="cad">Editar SKU</h1>
+      <div className="form-group">
+        <div style={{ marginLeft: "5rem" }}>
+          <img
+            width={200}
+            height={200}
+            src={imgEstampa}
+            style={{ marginLeft: "2rem" }}
+          />
+        </div>
+        <h3>{nome_estampa}</h3>
+      </div>
       <div className="forms">
-        <form onSubmit={handleUpdate}>
-          <div className="form-group">
-            <div className="group-image" style={{marginLeft: "5rem"}}>
-              <img width={200} height={200} src={imgFrente} style={{marginLeft: "2rem"}}/>
-                <input
-                  className="image"
-                  accept="image/*"
-                  type="file"
-                  onChange={(e) => imgToBase64(e.target.files[0], "frente")}
-                />
-            </div>
-            <div>
-              <img width={200} height={200} src={imgTras} style={{marginLeft: "2rem"}}/>
-                <input
-                  className="image"
-                  accept="image/*"
-                  type="file"
-                  onChange={(e) => imgToBase64(e.target.files[0], "tras")}
-                />
-            </div>
-            <div>
-              <img width={200} height={200} src={imgCorpo} style={{marginLeft: "2rem"}}/>
-                <input
-                  className="image"
-                  accept="image/*"
-                  type="file"
-                  onChange={(e) => imgToBase64(e.target.files[0], "corpo")}
-                />
-            </div>
+        <form onSubmit={handleSubmit}>
+          <div className="group-image" style={{ marginLeft: "5rem" }}>
+            <img
+              width={200}
+              height={200}
+              src={imgFrente}
+              style={{ marginLeft: "2rem" }}
+            />
+            <input
+              className="image"
+              accept="image/*"
+              type="file"
+              onChange={(e) => imgToBase64(e.target.files[0], "frente")}
+            />
           </div>
-
           <div className="form-group">
-            <label htmlFor="Nome">Nome</label>
+            <label htmlFor="sku">SKU</label>
             <input
               type="text"
-              name="Nome"
-              id="Nome"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
+              name="sku"
+              id="sku"
+              value={sku}
+              onChange={(e) => setSku(e.target.value)}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="tecido">Tecido</label>
-            <input
-              type="text"
-              name="tecido"
-              id="tecido"
-              placeholder="Tipo do tecido"
-              value={tecido}
-              onChange={(e) => setTecido(e.target.value)}
+            <label htmlFor="dimencao_estampa">Dimensão da estampa</label>
+            <select
+              name="dimencao_estampa"
+              id="dimencao_estampa"
+              value={dimensao_estampa}
+              onChange={(e) => setDimensao_estampa(e.target.value)}
               required
-            />
+            >
+              <option value="">-- Selecionar --</option>
+              {dimensoes?.map((f) => (
+                <option value={f}>{f}</option>
+              ))}
+            </select>
           </div>
           <div className="form-group">
-            <label htmlFor="estampa">Estampa</label>
+            <label htmlFor="tipo_estampa">Tipo de estampa</label>
             <input
               type="text"
-              name="estampa"
-              id="estampa"
+              name="tipo_estampa"
+              id="tipo_estampa"
               placeholder="Tipo da estampa"
-              value={estampa}
-              onChange={(e) => setEstampa(e.target.value)}
+              value={tipo_estampa}
+              onChange={(e) => setTipo_estampa(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="tecido_camiseta">Tecido da camiseta</label>
+            <input
+              type="text"
+              name="tecido_camiseta"
+              id="tecido_camiseta"
+              value={tecido_camiseta}
+              onChange={(e) => setTecido_camiseta(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="cor_camiseta">Cor da camiseta</label>
+            <select
+              name="cor_camiseta"
+              id="cor_camiseta"
+              value={cor_camiseta}
+              onChange={(e) => setCor_camiseta(e.target.value)}
+              required
+            >
+              <option value="">-- Selecionar --</option>
+              <option value="Branco">Branco</option>
+              <option value="Preto">Preto</option>
+              <option value="Cinza">Cinza</option>
+              <option value="Azul">Azul</option>
+              <option value="Rosa">Rosa</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="tamanho_camiseta">Tamanho da camiseta</label>
+            <select
+              name="tamanho_camiseta"
+              id="tamanho_camiseta"
+              value={tamanho_camiseta}
+              onChange={(e) => setTamanho_camiseta(e.target.value)}
+              required
+            >
+              <option value="">-- Selecionar --</option>
+              <option value="BL">Baby Look</option>
+              <option value="P">Pequeno</option>
+              <option value="M">Médio</option>
+              <option value="G">Grande</option>
+              <option value="XG">Extra Grande</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="marca_camiseta">Marca da camiseta</label>
+            <input
+              type="text"
+              name="marca_camiseta"
+              id="marca_camiseta"
+              value={marca_camiseta}
+              onChange={(e) => setMarca_camiseta(e.target.value)}
               required
             />
           </div>
@@ -216,60 +269,14 @@ const EditarProduto = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="tamanho">Tamanho</label>
-            <select
-              name="tamanho"
-              id="tamanho"
-              value={tamanho}
-              onChange={(e) => setTamanho(e.target.value)}
-              required
-            >
-              <option value="">-- Selecionar --</option>
-              <option value="BL">Baby Look</option>
-              <option value="P">Pequeno</option>
-              <option value="M">Médio</option>
-              <option value="G">Grande</option>
-              <option value="XG">Extra Grande</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="cor">Cor</label>
-            <select
-              name="cor"
-              id="cor"
-              value={cor}
-              onChange={(e) => setCor(e.target.value)}
-              required
-            >
-              <option value="">-- Selecionar --</option>
-              <option value="Branco">Branco</option>
-              <option value="Preto">Preto</option>
-              <option value="Cinza">Cinza</option>
-              <option value="Azul">Azul</option>
-              <option value="Rosa">Rosa</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="preco">Preço</label>
+            <label htmlFor="custo_lote">Custo do lote</label>
             <input /*Adicionar mascara */
               type="number"
-              name="preco"
-              id="preco"
+              name="custo_lote"
+              id="custo_lote"
               placeholder="R$00.00"
-              value={preco}
-              onChange={(e) => setPreco(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="custo">Custo</label>
-            <input /*Adicionar mascara */
-              type="number"
-              name="custo"
-              id="custo"
-              placeholder="R$00.00"
-              value={custo}
-              onChange={(e) => setCusto(e.target.value)}
+              value={custo_lote}
+              onChange={(e) => setCusto_lote(e.target.value)}
               required
             />
           </div>
@@ -290,19 +297,9 @@ const EditarProduto = () => {
               ))}
             </select>
           </div>
+
           <div className="form-group">
-            <label htmlFor="marca">Marca</label>
-            <input
-              type="text"
-              name="marca"
-              id="marca"
-              value={marca}
-              onChange={(e) => setMarca(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-          <label></label>
+            <label></label>
             <button type="submit">Editar</button>
           </div>
         </form>

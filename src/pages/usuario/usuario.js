@@ -6,7 +6,9 @@ import axios from "axios";
 import "../../styles/auth.css";
 import "../../styles/carrinho.css";
 import format from "date-fns/format";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import { RiCoupon3Fill, RiBankCardFill } from "react-icons/ri";
+import InputMask from "react-input-mask";
 
 const Usuario = () => {
   const [auth, setAuth] = UseAuth();
@@ -68,10 +70,9 @@ const Usuario = () => {
     try {
       const { data } = await axios.get(
         //A variável tem que se chamar necessariamente data aqui
-        `http://localhost:3001/api/v1/pedidos/${auth.usuario._id}`
+        `http://localhost:3001/api/v1/pedidos/pedidoUsuario/${auth.usuario._id}`
       );
       setHistorico(data.pedidosUser);
-      console.log(historico);
     } catch (e) {
       console.log(e);
       toast.error("Algo deu errado", {
@@ -139,11 +140,13 @@ const Usuario = () => {
   const handleDelete = async () => {
     await axios
       .put("http://localhost:3001/api/v1/auth/delete/" + auth.usuario._id)
-      .then(setAuth({
-        ...auth,
-        usuario: null,
-        token: "",
-      }))
+      .then(
+        setAuth({
+          ...auth,
+          usuario: null,
+          token: "",
+        })
+      )
       .then(sessionStorage.removeItem("auth"))
       .then(sessionStorage.removeItem("carrinho"))
       .then(Navigate("/"))
@@ -152,7 +155,7 @@ const Usuario = () => {
           className: "toast-message",
           position: "top-center",
           autoClose: 1500,
-          theme: "dark"
+          theme: "dark",
         });
       });
   };
@@ -164,7 +167,7 @@ const Usuario = () => {
         `http://localhost:3001/api/v1/auth/editarSenha/${auth.usuario._id}`,
         {
           senhaAntiga,
-          senhaNova
+          senhaNova,
         }
       );
 
@@ -195,7 +198,6 @@ const Usuario = () => {
     }
   };
 
-
   useEffect(() => {
     getUsuario();
     getHistorico();
@@ -207,47 +209,13 @@ const Usuario = () => {
     return format(newData, "dd/MM/yyyy");
   }
 
-  function statusPgto(status) {
-    try {
-      switch (status) {
-        case 0:
-          return "Não processado!";
-        case 1:
-          return "Erro no pagamento!";
-        case 2:
-          return "Cancelado!";
-      }
-    } catch (e) {
-      console.log(e);
-      toast.error("Algo deu errado", {
-        className: "toast-message",
-        position: "top-center",
-        autoClose: 1500,
-        theme: "dark",
-      });
-    }
-  }
+  const RedirectPage = (page) => {
+    window.open(page, "_blank");
+  };
 
-  function tipoPgto(tipo) {
-    try {
-      switch (tipo) {
-        case 0:
-          return "Não definido!";
-        case 1:
-          return "PIX";
-        case 2:
-          return "Cartão de crédito";
-      }
-    } catch (e) {
-      console.log(e);
-      toast.error("Algo deu errado", {
-        className: "toast-message",
-        position: "top-center",
-        autoClose: 1500,
-        theme: "dark",
-      });
-    }
-  }
+  const navegarPagamento = (pedido) => {
+    Navigate(`/auth-login/pagamento/${pedido}`);
+  };
 
   return (
     <Layout>
@@ -282,7 +250,9 @@ const Usuario = () => {
             }}
           >
             <form onSubmit={handleSenha}>
-              <h4 style={{ display: "flex", justifyContent: "center" }}>Alterar Senha</h4>
+              <h4 style={{ display: "flex", justifyContent: "center" }}>
+                Alterar Senha
+              </h4>
               <div className="edit-group">
                 <label htmlFor="senhaAntiga">Senha Antiga</label>
                 <input
@@ -319,7 +289,12 @@ const Usuario = () => {
               marginTop: "3rem",
             }}
           >
-            <button style={{ margin: "1rem 1rem" }} onClick={() => {handleDelete()}}>
+            <button
+              style={{ margin: "1rem 1rem" }}
+              onClick={() => {
+                handleDelete();
+              }}
+            >
               Excluir Perfil
             </button>
           </div>
@@ -359,11 +334,11 @@ const Usuario = () => {
               </div>
               <div className="edit-group">
                 <label htmlFor="Cpf">CPF</label>
-                <input
-                  type="number"
+                <InputMask
                   name="Cpf"
                   id="Cpf"
-                  placeholder="000.000.000-00"
+                  mask="999.999.999-99"
+                  maskPlaceholder="000.000.000-00"
                   value={cpf}
                   onChange={(e) => setCpf(e.target.value)}
                   required
@@ -382,11 +357,12 @@ const Usuario = () => {
               </div>
               <div className="edit-group">
                 <label htmlFor="Tel">Telefone</label>
-                <input
-                  type="number"
+                <InputMask
                   name="Tel"
                   id="Tel"
-                  placeholder="00 90000 0000"
+                  placeholder="(ddd) 90000-0000"
+                  maskPlaceholder="(ddd) 99999-9999"
+                  mask="(99) 99999-9999"
                   value={telefone}
                   onChange={(e) => setTelefone(e.target.value)}
                   required
@@ -394,11 +370,12 @@ const Usuario = () => {
               </div>
               <div className="edit-group">
                 <label htmlFor="cep">CEP</label>
-                <input
-                  type="number"
+                <InputMask
                   name="cep"
                   id="cep"
                   placeholder="00000-000"
+                  maskPlaceholder="99999-999"
+                  mask="99999-999"
                   value={cep}
                   onChange={(e) => setCEP(e.target.value)}
                   required
@@ -418,7 +395,7 @@ const Usuario = () => {
               <div className="edit-group">
                 <label htmlFor="numero">Número</label>
                 <input
-                  type="number"
+                  type="text"
                   name="numero"
                   id="nummero"
                   value={numEnd}
@@ -507,40 +484,89 @@ const Usuario = () => {
         {auth?.usuario.perfil ? (
           <div style={{ display: "none" }}></div>
         ) : (
-          <div style={{ margin: "0 1rem", fontSize: "1.5rem", width: "40%" }}>
-            {historico?.map((p) => (
-              <div className="carrinho">
-                <table className="tabela">
-                  <tbody>
-                    <tr key={p._id} style={{}}>
+          <div
+            className="table"
+            style={{
+              margin: "0 1rem",
+              fontSize: "1.5rem",
+              width: "40%",
+              display: "flex",
+              flexDirection: "column",
+              maxHeight: "100vh",
+              justifyContent: "normal",
+            }}
+          >
+            <table>
+              <tbody>
+                {historico?.map((p) => (
+                  <tr>
+                    <NavLink to={`/auth-login/detalhePedido/${p._id}`}>
                       <td>
-                        <b>ID do pedido</b>
-                        <p>{p._id}</p>
+                        <div className="carrinho" style={{}}>
+                          <table className="tabela">
+                            <tbody>
+                              <tr key={p._id} style={{}}>
+                                <td>
+                                  <b>ID do pedido</b>
+                                  <p>{p._id}</p>
+                                </td>
+                                <td>
+                                  <b>Data do pedido</b>
+                                  <p>{dataBr(p.createdAt)}</p>
+                                </td>
+                                <td>
+                                  <b>Total do pedido</b>
+                                  <p>
+                                    {p.totalPedido.toLocaleString("pt-BR", {
+                                      style: "currency",
+                                      currency: "BRL",
+                                    })}
+                                  </p>
+                                </td>
+                                <td>
+                                  <b>Status do pagamento</b>{" "}
+                                  {p.status === "PAGO" ? (
+                                    <p style={{ color: "blue" }}>{p.status}</p>
+                                  ) : (
+                                    <p style={{ color: "red" }}>{p.status}</p>
+                                  )}
+                                </td>
+                                {p.status === "PAGO" ? (
+                                  <td>
+                                    <b>Comprovante</b>{" "}
+                                    <p>
+                                      {" "}
+                                      <RiCoupon3Fill
+                                        size="25px"
+                                        className="icon"
+                                        onClick={() =>
+                                          RedirectPage(p.urlPagamento)
+                                        }
+                                      />
+                                    </p>
+                                  </td>
+                                ) : (
+                                  <td>
+                                    <b>Realizar Pagamento</b>{" "}
+                                    <p>
+                                      <RiBankCardFill
+                                        size="25px"
+                                        className="icon"
+                                        onClick={() => navegarPagamento(p._id)}
+                                      />
+                                    </p>
+                                  </td>
+                                )}
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </td>
-                      <td>
-                        <b>Data do pedido</b>
-                        <p>{dataBr(p.createdAt)}</p>
-                      </td>
-                      <td>
-                        <b>Total do pedido</b>
-                        <p>
-                          {p.total.toLocaleString("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
-                          })}
-                        </p>
-                      </td>
-                      <td>
-                        <b>Status do pagamento</b> <p>{statusPgto(p.status)}</p>
-                      </td>
-                      <td>
-                        <b>Tipo de pagamento</b> <p>{tipoPgto(p.tipoPgto)}</p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            ))}
+                    </NavLink>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>

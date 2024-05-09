@@ -74,7 +74,7 @@ const Login = () => {
           <div className="form-group">
             <label htmlFor="senha">Senha</label>
             <input
-              type="senha"
+              type="password"
               name="senha"
               id="senha"
               value={senha}
@@ -93,11 +93,11 @@ const Login = () => {
                 <p>Cadastrar-se</p>
               </NavLink>
             </div>
-            <div className="link">
+            {/* <div className="link">
               <NavLink to="/recuperarSenha">
                 <p>Recuperar senha</p>
               </NavLink>
-            </div>
+            </div> */}
           </div>
         </form>
       </div>

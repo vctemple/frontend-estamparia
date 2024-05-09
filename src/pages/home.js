@@ -5,48 +5,52 @@ import { toast } from "react-toastify";
 import { useNavigate, NavLink } from "react-router-dom";
 import "../styles/grid.css";
 import "../styles/card.css";
-import banner from "../imgs/banner teste.jpg"
+import banner from "../imgs/banner teste.jpg";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 
 const Home = () => {
-  const [carrinho, setCarrinho] = useState([])
   const [produtos, setProdutos] = useState([]);
   const [tam, setTam] = useState([]);
   const [cor, setCor] = useState([]);
   const [precoMin, setPrecoMin] = useState("");
   const [precoMax, setPrecoMax] = useState("");
   const [change, setChange] = useState(false);
+  const [img_banner, setImg_banner] = useState("");
   const Navigate = useNavigate();
 
   const listarProdutos = async () => {
     try {
-      const dados = await axios.get("http://localhost:3001/api/v1/produtos/ativo");
+      const dados = await axios.post(
+        "http://localhost:3001/api/v1/anuncios/home", { tam, cor, precoMin, precoMax }
+      );
       setProdutos(dados.data.produtos);
     } catch (e) {
       console.log(e);
       toast.error("Algo deu errado", {
         className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
       });
     }
   };
 
-  const navegarCart = () => {
-    Navigate("/carrinho");
-  }
-
-  const filtrarProdutos = async () => {
+  const getBanner = async () => {
     try {
-      const { data } = await axios.post(
-        "http://localhost:3001/api/v1/produtos/filtro",
-        { tam, cor, precoMin, precoMax }
+      const { data } = await axios.get(
+        //A variável tem que se chamar necessariamente data aqui
+        `http://localhost:3001/api/v1/banner/getBanner/663516d49906828873d816dd`
       );
-      setProdutos(data?.produtos);
+      console.log(data);
+      setImg_banner(data.banner.img_banner)
     } catch (e) {
       console.log(e);
       toast.error("Algo deu errado", {
         className: "toast-message",
         position: "top-center",
-                    autoClose: 1500,
-                    theme: "dark"
+        autoClose: 1500,
+        theme: "dark",
       });
     }
   };
@@ -61,6 +65,11 @@ const Home = () => {
     return newArr;
   }
 
+  const handleRangePreco = (precos) => {
+    if (precos[0] === precos[1]) return `R$${precos[0]}`;
+    else return `De R$${precos[0]} até R$${precos[1]}`
+  }
+  
   const handleTamanhos = (t) => {
     const resultado = tam.includes(t);
     if (resultado) {
@@ -71,7 +80,7 @@ const Home = () => {
       novoArr.push(t);
       setTam(novoArr);
     }
-    setChange(true)
+    setChange(true);
   };
 
   const handleCores = (c) => {
@@ -79,40 +88,30 @@ const Home = () => {
     if (resultado) {
       let arrNovo = removeDaLista(cor, c);
       setCor(arrNovo);
-
     } else {
       let novoArr = cor;
       novoArr.push(c);
       setCor(novoArr);
     }
-    setChange(true)
+    setChange(true);
   };
 
-  const handleCarrinho = (p) => {
-    let newArr = JSON.parse(sessionStorage.getItem("carrinho"));
-    if (!newArr) newArr = carrinho
-    newArr.push({
-      ...p,
-      qtd: 1
-    });
-    setCarrinho(newArr);
-    sessionStorage.setItem("carrinho", JSON.stringify(newArr));
-    setChange(true)
+  const trocaCasoNull = (valor) => {
+    if(!valor || valor.length === 0) return "0";
+    else return valor;
   }
-
-  useEffect(() => {
-    if (tam.length || cor.length || precoMin || precoMax) filtrarProdutos();
-    setChange(false)
-  }, [change, tam, cor, precoMin, precoMax]);
-
-  useEffect(() => {
-    if (!tam.length && !cor.length && !precoMin && !precoMax) listarProdutos();
-    setChange(false)
-  }, [change, tam.length, cor.length, precoMin, precoMax]);
+  
+    useEffect(() => {
+    listarProdutos();
+    getBanner();
+    setChange(false);
+  }, [change, precoMax, precoMin]);
 
   return (
     <Layout>
-      <div style={{display: "flex", justifyContent: "center"}}><img className="imagem" src={banner}></img></div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <img className="imagem" src={img_banner}></img>
+      </div>
       <div className="grid">
         <div className="filter">
           <div className="card2">
@@ -216,36 +215,35 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="grid2">
+
+        <div className="grid2" style={{display: "flex", flexWrap: "wrap"}}>
           {produtos?.map((p) => (
-            <div className="card">
+            <div className="card" style={{maxWidth: "35rem"}}>
               <div key={p._id} className="container">
-                <NavLink to={`/produto/${p._id}`}>
-                  <img src={p.imgFrente} width={250} height={250} />
-                </NavLink>
-                <div style={{ minWidth: "90%" }}>
-                  <h3>{p.nome}</h3>
-                  <h3>R${p.preco}</h3>
-                  <h4>Tamanho: {p.tamanho}</h4>
+                <div style={{ maxWidth: "500px", padding: "1rem" }}>
+                  <Carousel showArrows={false} infiniteLoop emulateTouch showStatus={false}>
+                    {p.imagens?.map((i) => (
+                      <img
+                        style={{ maxWidth: "250px", maxHeight: "250px" }}
+                        src={i}
+                      />
+                    ))}
+                  </Carousel>
+                </div>
+
+                <div style={{ minWidth: "90%", display: "flex", alignItems: "center", flexDirection: "column"}}>
+                  <h3 style={{margin: "0.5rem"}}>{p.nome}</h3>
+                  <h3 style={{margin: "0.5rem"}}>{handleRangePreco(p.rangePrecos)}</h3>
+                  <h4 style={{margin: "0.5rem"}}>{p.descricao}</h4>
                 </div>
                 <button
                   className="button1"
                   onClick={() => {
-                    handleCarrinho(p);
-                    toast.success("Item adicionado ao carrinho", {
-                      className: "toast-message",
-                      position: "top-center",
-                      autoClose: 1500,
-                      theme: "dark"
-                    });
-                    }}
+                    Navigate(`/produto/${p._id}/${trocaCasoNull(tam)}/${trocaCasoNull(cor)}/${trocaCasoNull(precoMin)}/${trocaCasoNull(precoMax)}`)
+                  }}
                 >
-                  Adicionar ao carrinho
+                  Escolher estampa
                 </button>
-                <button className="button2" onClick={() => {
-                    handleCarrinho(p);
-                    navegarCart();
-                    }}>Comprar</button>
               </div>
             </div>
           ))}

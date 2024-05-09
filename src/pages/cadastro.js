@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import "../styles/auth.css";
+import InputMask from 'react-input-mask';
 
 const CadastroUsuario = () => {
   const [nome, setNome] = useState("");
@@ -102,10 +103,11 @@ const CadastroUsuario = () => {
           </div>
           <div className="form-group">
             <label htmlFor="Cpf">CPF</label>
-            <input
-              type="number"
+            <InputMask
               name="Cpf"
               id="Cpf"
+              mask="999.999.999-99"
+              maskPlaceholder="000.000.000-00"
               placeholder="000.000.000-00"
               value={cpf}
               onChange={(e) => setCpf(e.target.value)}
@@ -125,11 +127,12 @@ const CadastroUsuario = () => {
           </div>
           <div className="form-group">
             <label htmlFor="Tel">Telefone</label>
-            <input
-              type="number"
+            <InputMask
               name="Tel"
               id="Tel"
-              placeholder="00 90000 0000"
+              placeholder="(ddd) 90000-0000"
+              maskPlaceholder="(ddd) 99999-9999"
+              mask="(99) 99999-9999"
               value={telefone}
               onChange={(e) => setTelefone(e.target.value)}
               required
@@ -148,11 +151,12 @@ const CadastroUsuario = () => {
           </div>
           <div className="form-group">
             <label htmlFor="cep">CEP</label>
-            <input
-              type="number"
+            <InputMask
               name="cep"
               id="cep"
               placeholder="00000-000"
+              maskPlaceholder="99999-999"
+              mask="99999-999"
               value={cep}
               onChange={(e) => setCEP(e.target.value)}
               required
