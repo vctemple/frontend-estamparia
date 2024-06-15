@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate, NavLink } from "react-router-dom";
 import "../styles/grid.css";
 import "../styles/card.css";
+import "../styles/homeItens.css";
 import banner from "../imgs/banner teste.jpg";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
@@ -221,7 +222,7 @@ const Home = () => {
             <div className="card" style={{maxWidth: "35rem"}}>
               <div key={p._id} className="container">
                 <div style={{ maxWidth: "500px", padding: "1rem" }}>
-                  <Carousel showArrows={false} infiniteLoop emulateTouch showStatus={false}>
+                  <Carousel className="home" showArrows={false} infiniteLoop emulateTouch showStatus={false}>
                     {p.imagens?.map((i) => (
                       <img
                         style={{ maxWidth: "250px", maxHeight: "250px" }}

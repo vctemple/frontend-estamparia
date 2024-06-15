@@ -37,7 +37,7 @@ const AnunciosPage = () => {
 
   const handleAtivacao = async (_id, ativo) => {
     await axios
-      .put("http://localhost:3001/api/v1/produtos/ativacaoEstampa/" + _id, {
+      .put("http://localhost:3001/api/v1/anuncios/ativacao/" + _id, {
         ativo,
       })
       .then(window.location.reload())

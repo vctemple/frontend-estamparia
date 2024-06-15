@@ -18,7 +18,7 @@ const DetalhePedido = () => {
     try {
       const { data } = await axios.get(
         //A variável tem que se chamar necessariamente data aqui
-        `http://localhost:3001/api/v1/pedidos/detalhePedido/${params.pid}`
+        `http://localhost:3001/api/v1/pedidos/detalhe/${params.pid}`
       );
       setPedido(data.pedido);
       setEmailCliente(data.pedido.usuario.email)

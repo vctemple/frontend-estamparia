@@ -151,10 +151,20 @@ const Carrinho = () => {
       const index = newArr.findIndex((p) => {
         return p.anuncioId === id;
       });
-      newArr[index].qtd = qtd;
+      if(qtd > newArr[index].skuQtd || qtd <= 0){
+        toast.error("Quantidade inválida", {
+          className: "toast-message",
+          position: "top-center",
+          autoClose: 1500,
+          theme: "dark",
+        });
+      } else{
+        newArr[index].qtd = qtd;
       sessionStorage.removeItem("carrinho");
       sessionStorage.setItem("carrinho", JSON.stringify(newArr));
       setChange(true);
+      }
+      
     } catch (e) {
       console.log(e);
       toast.error("Algo deu errado", {
@@ -517,7 +527,7 @@ const Carrinho = () => {
                     navegarCadastro();
                   }}
                 >
-                  Se Cadastrar
+                  Cadastrar
                 </button>
               </div>
             )}

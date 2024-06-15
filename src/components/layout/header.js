@@ -110,7 +110,7 @@ const Header = () => {
                       </DropdownMenu.Item>
                       <DropdownMenu.Item className="DropdownMenuItem">
                         <NavLink to="/auth-login/auth-gerente/listaEstampaProd">
-                          Cadastrar Produto
+                          Cadastrar SKU
                         </NavLink>
                       </DropdownMenu.Item>
                     </DropdownMenu.SubContent>
@@ -246,7 +246,7 @@ const Header = () => {
                       </DropdownMenu.Item>
                       <DropdownMenu.Item className="DropdownMenuItem">
                         <NavLink to="/auth-login/auth-gerente/listaEstampaProd">
-                          Cadastrar Produto
+                          Cadastrar SKU
                         </NavLink>
                       </DropdownMenu.Item>
                     </DropdownMenu.SubContent>

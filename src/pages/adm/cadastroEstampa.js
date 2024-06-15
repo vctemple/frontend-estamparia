@@ -90,7 +90,7 @@ const CadastroEstampa = () => {
         <form onSubmit={handleSubmit}>
           <div>
             <div className="form-group" style={{justifyContent: "flex-end"}}>
-            <div style={{display: "flex", justifyContent: "flex-end" }}>
+            <div style={{display: "flex", alignContent: "flex-end", flexDirection: "column" }}>
                 <h3>Dimensões</h3>
                 <div>{dimensoes.map((d) => (
                     <h4>{d}</h4>
@@ -126,7 +126,7 @@ const CadastroEstampa = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="descricao">Descrição da estampa</label>
+            <label htmlFor="descricao" style={{minWidth: "14rem"}}>Descrição</label>
             <input
               type="text"
               name="descricao"
@@ -136,7 +136,7 @@ const CadastroEstampa = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="tecido">Dimenções da estampa</label>
+            <label htmlFor="tecido" style={{minWidth: "14rem"}}>Dimenções</label>
             <input
               type="text"
               name="dimencoes"

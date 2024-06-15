@@ -75,7 +75,7 @@ const CadastroCamiseta = () => {
 
   return (
     <Layout>
-      <h1 className="cad">Cadastro de camiseta lisa</h1>
+      <h1>Cadastro de camiseta lisa</h1>
       <div className="forms">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -130,7 +130,7 @@ const CadastroCamiseta = () => {
                 <label
                   htmlFor="descricao"
                   style={{
-                    minWidth: "6rem",
+                    minWidth: "13rem",
                     marginLeft: 0,
                     marginRight: 0,
                   }}

@@ -51,6 +51,10 @@
     width: 5rem;
     height: 5rem;
 }
+
+.carousel .control-arrow{
+    display: block
+    }
 .carousel.carousel-slider .control-arrow:hover{
     background-color: black;
 }

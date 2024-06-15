@@ -111,17 +111,28 @@ const Pedidos = () => {
             value={dataFim}
             onChange={(e) => setDataFim(e.target.value)}
           />
-        </div>
-        <div style={{ margin: "0 1rem", fontSize: "1.5rem", minWidth: "50%" }}>
-          {pedidos?.map((p) => (
-            <NavLink to={`/auth-login/detalhePedido/${p._id}`}>
-              <div
-                className="carrinho"
-                style={{ borderRadius: "1rem", marginTop: "2rem" }}
+        </div>          
+        <div
+                className="table"
+                style={{
+                  margin: "0 1rem",
+                  fontSize: "1.5rem",
+                  width: "60%",
+                  display: "flex",
+                  flexDirection: "column",
+                  maxHeight: "100vh",
+                  justifyContent: "normal"}}
               >
-                <table className="tabela">
+                <table>
                   <tbody>
+                  {pedidos?.map((p) => (
                     <tr key={p._id}>
+                      <NavLink to={`/auth-login/detalhePedido/${p._id}`}>
+                      <div className="carrinho">
+                      <table className="tabela">
+                            <tbody>
+                              <tr key={p._id} style={{}}></tr>
+                      
                       <td>
                         <b>Pedido</b>
                         <p>{p._id}</p>
@@ -148,12 +159,17 @@ const Pedidos = () => {
                         </p>
                       </td>
                       <td></td>
+                      </tbody>
+                      </table>
+                      </div>
+                      </NavLink>
                     </tr>
+                  ))}
                   </tbody>
                 </table>
-              </div>
-            </NavLink>
-          ))}
+             
+            
+
         </div>
       </div>
     </Layout>

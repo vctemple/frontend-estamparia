@@ -31,3 +31,9 @@ td{
 .tabela p{
     display: contents;
 }
+
+.pEspecial:hover{
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: blue;
+}

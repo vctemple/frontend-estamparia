@@ -136,31 +136,43 @@ const EditarProduto = () => {
   return (
     <Layout>
       <h1 className="cad">Editar SKU</h1>
-      <div className="form-group">
-        <div style={{ marginLeft: "5rem" }}>
-          <img
-            width={200}
-            height={200}
+      <div className="form-group" style={{
+            
+            display: "flex",
+            alignItems: "center",
+            maxWidth: "80vw",
+            justifyContent: "center",
+            margin: "0 auto",
+            
+          }}>
+            <img
+            width={80}
+            height={80}
             src={imgEstampa}
             style={{ marginLeft: "2rem" }}
           />
+        <div
+          style={{borderTopRightRadius: "2rem", borderBottomRightRadius: "2rem", background: "#ccc", minWidth: "80%", display: "flex", alignContent: "flex-start"}}
+        >
+          <h3 style={{margin: "2.85rem 1rem"}}>{nome_estampa}</h3>
         </div>
-        <h3>{nome_estampa}</h3>
+        
       </div>
-      <div className="forms">
+      <div className="forms formComLabel1">
         <form onSubmit={handleSubmit}>
-          <div className="group-image" style={{ marginLeft: "5rem" }}>
+          <div className="group-image" style={{ display: "flex", flexFlow: "column", alignItems: "flex-end" }}>
             <img
               width={200}
               height={200}
               src={imgFrente}
-              style={{ marginLeft: "2rem" }}
+              style={{ marginRight: "4rem" }}
             />
             <input
               className="image"
               accept="image/*"
               type="file"
               onChange={(e) => imgToBase64(e.target.files[0], "frente")}
+              style={{maxWidth: "27.8rem", marginTop: "1rem"}}
             />
           </div>
           <div className="form-group">

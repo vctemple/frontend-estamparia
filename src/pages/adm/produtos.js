@@ -49,7 +49,7 @@ const ProdutosPage = () => {
 
   return (
     <Layout>
-      <h1>Lista de Produtos</h1>
+      <h1>Lista de SKUs</h1>
       <div
         className="table"
         style={{

@@ -209,6 +209,19 @@ const Usuario = () => {
     return format(newData, "dd/MM/yyyy");
   }
 
+  function removeCaracter(str) {
+    // Caracteres a serem removidos
+    var charsToRemove = ["-", " ", "(", ")", "."];
+
+    // Remover os caracteres indesejados
+    for (var i = 0; i < charsToRemove.length; i++) {
+        var char = charsToRemove[i];
+        str = str.split(char).join("");
+    }
+
+    return str;
+}
+
   const RedirectPage = (page) => {
     window.open(page, "_blank");
   };
@@ -364,7 +377,7 @@ const Usuario = () => {
                   maskPlaceholder="(ddd) 99999-9999"
                   mask="(99) 99999-9999"
                   value={telefone}
-                  onChange={(e) => setTelefone(e.target.value)}
+                  onChange={(e) => setTelefone(removeCaracter(e.target.value))}
                   required
                 />
               </div>
@@ -377,7 +390,7 @@ const Usuario = () => {
                   maskPlaceholder="99999-999"
                   mask="99999-999"
                   value={cep}
-                  onChange={(e) => setCEP(e.target.value)}
+                  onChange={(e) => setCEP(removeCaracter(e.target.value))}
                   required
                 />
               </div>
@@ -500,16 +513,17 @@ const Usuario = () => {
               <tbody>
                 {historico?.map((p) => (
                   <tr>
-                    <NavLink to={`/auth-login/detalhePedido/${p._id}`}>
+                    
                       <td>
                         <div className="carrinho" style={{}}>
                           <table className="tabela">
                             <tbody>
                               <tr key={p._id} style={{}}>
+                              <NavLink to={`/auth-login/detalhePedido/${p._id}`}>
                                 <td>
                                   <b>ID do pedido</b>
-                                  <p>{p._id}</p>
-                                </td>
+                                  <p className="pEspecial">{p._id}</p>
+                                </td></NavLink>
                                 <td>
                                   <b>Data do pedido</b>
                                   <p>{dataBr(p.createdAt)}</p>
@@ -528,7 +542,17 @@ const Usuario = () => {
                                   {p.status === "PAGO" ? (
                                     <p style={{ color: "blue" }}>{p.status}</p>
                                   ) : (
+                                    <></>
+                                  )}
+                                  {p.status === "PENDENTE" ? (
+                                    <p style={{ color: "#b3b300" }}>{p.status}</p>
+                                  ) : (
+                                    <></>
+                                  )}
+                                  {p.status === "CANCELADO" ? (
                                     <p style={{ color: "red" }}>{p.status}</p>
+                                  ) : (
+                                    <></>
                                   )}
                                 </td>
                                 {p.status === "PAGO" ? (
@@ -546,6 +570,9 @@ const Usuario = () => {
                                     </p>
                                   </td>
                                 ) : (
+                                  <></>
+                                )}
+                                {p.status === "PENDENTE" ? (
                                   <td>
                                     <b>Realizar Pagamento</b>{" "}
                                     <p>
@@ -556,13 +583,15 @@ const Usuario = () => {
                                       />
                                     </p>
                                   </td>
+                                ) : (
+                                  <></>
                                 )}
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </td>
-                    </NavLink>
+                    
                   </tr>
                 ))}
               </tbody>

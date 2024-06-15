@@ -43,13 +43,11 @@ const EditarEstampa = () => {
     newArr.push(e);
     setDimensoes(newArr);
     setDimensao("");
-    setFlag(true);
   };
 
   const limpaDimensoes = () => {
     setDimensoes([]);
     setDimensao("");
-    setFlag(true);
   }
 
   const handleUpdate = async (e) => {
@@ -109,45 +107,46 @@ const EditarEstampa = () => {
     <h1 className="cad">Editar de Estampa</h1>
 
     <div className="forms">
-      <form onSubmit={handleUpdate}>
-        <div>
-          <div className="form-group">
-            <div style={{ marginLeft: "5rem" }}>
-              <img
-                width={200}
-                height={200}
-                src={imgEstampa}
-                style={{ marginLeft: "2rem" }}
-              />
-              <input
-                className="image"
-                accept="image/*"
-                type="file"
-                onChange={(e) => imgToBase64(e.target.files[0])}
-              />
-            </div>
-            <div>
-              <h3>Dimensões</h3>
-              <div>{dimensoes.map((d) => (
-                  <h4>{d}</h4>
-              ))}</div>
+        <form onSubmit={handleUpdate}>
+          <div>
+            <div className="form-group" style={{justifyContent: "flex-end"}}>
+            <div style={{display: "flex", alignItems: "flex-end", flexDirection: "column" }}>
+                <h3>Dimensões</h3>
+                <div>{dimensoes.map((d) => (
+                    <h4>{d}</h4>
+                ))}</div>
+              </div>
+              <div style={{display: "flex", justifyContent: "flex-end", flexFlow: "column" }}>
+                <img
+                  width={200}
+                  height={200}
+                  src={imgEstampa}
+                  style={{ marginLeft: "2rem" }}
+                />
+                <input
+                  className="image"
+                  accept="image/*"
+                  type="file"
+                  onChange={(e) => imgToBase64(e.target.files[0])}
+                />
+              </div>
+              
             </div>
           </div>
-        </div>
 
-        <div className="form-group">
-          <label htmlFor="Nome">Nome da estampa</label>
-          <input
-            type="text"
-            name="Nome"
-            id="Nome"
-            value={nome_estampa}
-            onChange={(e) => setNome(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-            <label htmlFor="descricao">Descrição da estampa</label>
+          <div className="form-group">
+            <label htmlFor="Nome" style={{minWidth: "14rem"}}>Nome da estampa</label>
+            <input
+              type="text"
+              name="Nome"
+              id="Nome"
+              value={nome_estampa}
+              onChange={(e) => setNome(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="descricao" style={{minWidth: "14rem"}}>Descrição</label>
             <input
               type="text"
               name="descricao"
@@ -156,26 +155,30 @@ const EditarEstampa = () => {
               onChange={(e) => setDescricao(e.target.value)}
             />
           </div>
-        <div className="form-group">
-          <label htmlFor="tecido">Dimensões da estampa</label>
-          <input
-            type="text"
-            name="dimensoes"
-            id="dimensoes"
-            placeholder="comp X alt cm"
-            value={dimensao}
-            onChange={(e) => setDimensao(e.target.value)}
-          />
-          <button type="button" onClick={() => addDimensoes(dimensao)}>Adicionar</button>
-          <button type="button" onClick={() => limpaDimensoes()}>Limpar</button>
-        </div>
+          <div className="form-group">
+            <label htmlFor="tecido" style={{minWidth: "14rem"}}>Dimenções</label>
+            <input
+              type="text"
+              name="dimencoes"
+              id="dimencoes"
+              placeholder="comp X alt cm"
+              value={dimensao}
+              onChange={(e) => setDimensao(e.target.value)}
+            />
+            
+          </div>
 
-        <div className="form-group">
-          <label></label>
-          <button type="submit">Editar</button>
-        </div>
-      </form>
-    </div>
+          <div className="form-group" style={{justifyContent: "flex-end"}}>
+          <button type="button" onClick={() => addDimensoes(dimensao)} style={{maxWidth: "12rem"}}>Adicionar</button>
+            <button type="button" onClick={() => limpaDimensoes()} style={{maxWidth: "12rem"}}>Limpar</button>
+          </div>
+
+          <div className="form-group" style={{justifyContent: "flex-end"}}>
+            <label></label>
+            <button type="submit">Cadastrar</button>
+          </div>
+        </form>
+      </div>
   </Layout>   
   );
 };

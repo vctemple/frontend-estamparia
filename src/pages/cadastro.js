@@ -73,6 +73,19 @@ const CadastroUsuario = () => {
     }
   };
 
+  function removeCaracter(str) {
+    // Caracteres a serem removidos
+    var charsToRemove = ["-", " ", "(", ")", "."];
+
+    // Remover os caracteres indesejados
+    for (var i = 0; i < charsToRemove.length; i++) {
+        var char = charsToRemove[i];
+        str = str.split(char).join("");
+    }
+
+    return str;
+}
+
   return (
     <Layout>
       <h1 className="cad">Cadastro</h1>
@@ -134,7 +147,7 @@ const CadastroUsuario = () => {
               maskPlaceholder="(ddd) 99999-9999"
               mask="(99) 99999-9999"
               value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
+              onChange={(e) => setTelefone(removeCaracter(e.target.value))}
               required
             />
           </div>
@@ -158,7 +171,7 @@ const CadastroUsuario = () => {
               maskPlaceholder="99999-999"
               mask="99999-999"
               value={cep}
-              onChange={(e) => setCEP(e.target.value)}
+              onChange={(e) => setCEP(removeCaracter(e.target.value))}
               required
             />
           </div>

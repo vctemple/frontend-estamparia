@@ -214,6 +214,19 @@ const DetalheProduto = () => {
     setChange(true);
   };
 
+  const handleQtdItem = (carrQtd, itemQtd) => {
+    if (carrQtd > itemQtd || carrQtd <= 0){
+      toast.error("Quantidade inválida", {
+        className: "toast-message",
+        position: "top-center",
+        autoClose: 1500,
+        theme: "dark",
+      });
+    } else{
+      setQuantidade(carrQtd)
+    }
+  }
+
   const handleCores = (c) => {
     const resultado = cor.includes(c);
     if (resultado) {
@@ -483,6 +496,7 @@ const DetalheProduto = () => {
               <h4>Cor do tecido: {produto.cor}</h4>
               <h4>Tipo de estampa: {produto.tipoEstampa}</h4>
               <h4>Dimensão da estampa: {produto.dimensao_estampa}</h4>
+              <h4>Estoque: {produto.skuQtd} unidades</h4>
               {produto.promocao ? (
                 <h2 style={{ color: "green" }}>
                   R${produto.precoVenda - produto.promocao}
@@ -535,7 +549,7 @@ const DetalheProduto = () => {
                     name="numero"
                     id="nummero"
                     value={quantidade}
-                    onChange={(e) => setQuantidade(e.target.value)}
+                    onChange={(e) => handleQtdItem(e.target.value, produto.skuQtd)}
                     required
                     style={{
                       maxWidth: "5rem",

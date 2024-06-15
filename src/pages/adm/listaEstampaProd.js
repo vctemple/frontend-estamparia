@@ -42,7 +42,7 @@ const ProdutosPage = () => {
 
   return (
     <Layout>
-      <h1>Estampas disponíveis para cadastro</h1>
+      <h1>Estampas disponíveis para cadastrar SKU</h1>
       <div
         className="table"
         style={{
